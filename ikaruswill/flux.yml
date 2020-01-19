@@ -12,7 +12,7 @@ steps:
   commands:
   - git fetch
   - git checkout ikaruswill/arm-docker
-  - git merge master --no-edit
+  - git merge origin/master --no-edit
 
 - name: publish-tag
   image: plugins/docker
