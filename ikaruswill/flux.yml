@@ -1,0 +1,36 @@
+kind: pipeline
+name: default
+type: docker
+
+platform:
+  os: linux
+  arch: arm
+
+steps:
+- name: checkout-arm-docker
+  image: alpine/git
+  commands:
+  - git checkout ikaruswill/arm-docker
+  - git merge master --no-edit
+
+- name: publish-tag
+  image: plugins/docker
+  settings:
+    repo: ikaruswill/flux
+    context: docker/
+    dockerfile: docker/Dockerfile.flux.arm
+    auto_tag: true
+    build_args:
+    - FLUX_VERSION=${DRONE_TAG}
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+  when:
+    event:
+    - tag
+    ref:
+      exclude:
+      - refs/tags/helm-*
+      - refs/tags/chart-*
+      - refs/tags/master-*
