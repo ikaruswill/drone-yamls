@@ -14,7 +14,7 @@ steps:
   - git checkout ikaruswill/arm-docker
   - git merge origin/master --no-edit
 
-- name: publish-tag
+- name: publish
   image: plugins/docker
   settings:
     repo: ikaruswill/flux
@@ -27,11 +27,12 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
-  when:
-    event:
-    - tag
-    ref:
-      exclude:
-      - refs/tags/helm-*
-      - refs/tags/chart-*
-      - refs/tags/master-*
+
+trigger:
+  event:
+  - tag
+  ref:
+    exclude:
+    - refs/tags/helm-*
+    - refs/tags/chart-*
+    - refs/tags/master-*
