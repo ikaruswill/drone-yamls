@@ -33,6 +33,7 @@ trigger:
   - tag
   ref:
     exclude:
+    - refs/tags/v*
     - refs/tags/helm-*
     - refs/tags/chart-*
     - refs/tags/master-*
