@@ -1,3 +1,4 @@
 {
-  "https://github.com/ikaruswill/kubeyaml.git": "ikaruswill/kubeyaml.yml"
+  "https://github.com/ikaruswill/kubeyaml.git": "ikaruswill/kubeyaml.yml",
+  "https://github.com/ikaruswill/descheduler.git": "ikaruswill/descheduler.yml"
 }
