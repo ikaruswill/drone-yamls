@@ -8,7 +8,7 @@ platform:
 
 steps:
 - name: checkout-arm-docker
-  image: alpine/git
+  image: ikaruswill/git
   commands:
   - git checkout ikaruswill/arm-docker
   - git merge master --no-edit
