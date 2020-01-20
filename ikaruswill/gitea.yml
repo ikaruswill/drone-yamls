@@ -1,0 +1,46 @@
+kind: pipeline
+name: default
+type: docker
+
+platform:
+  os: linux
+  arch: arm
+
+steps:
+- name: sync-upsteam-tags
+  image: ikaruswill/git
+  commands:
+  - git remote add upstream https://github.com/go-gitea/gitea.git
+  - git fetch upstream
+  - git push --tags origin
+  when:
+    branch:
+    - master
+    event:
+    - push
+
+- name: checkout-arm-docker
+  image: ikaruswill/git
+  commands:
+  - git fetch
+  - git checkout ikaruswill/arm-docker
+  - git merge origin/master --no-edit
+  when:
+    event:
+    - tag
+
+- name: publish
+  image: plugins/docker
+  settings:
+    repo: ikaruswill/gitea
+    auto_tag: true
+    dockerfile: Dockerfile.arm
+    build_args:
+    - GITEA_VERSION=${DRONE_TAG}
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+  when:
+    event:
+    - tag
