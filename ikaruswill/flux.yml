@@ -7,12 +7,33 @@ platform:
   arch: arm
 
 steps:
+- name: sync-upsteam-tags
+  image: ikaruswill/git
+  commands:
+  - git remote add upstream https://github.com/fluxcd/flux.git
+  - git fetch upstream
+  - git push --tags origin
+  when:
+    branch:
+    - master
+    event:
+    - push
+
 - name: checkout-arm-docker
   image: ikaruswill/git
   commands:
   - git fetch
   - git checkout ikaruswill/arm-docker
   - git merge origin/master --no-edit
+  when:
+    event:
+    - tag
+    ref:
+      exclude:
+      - refs/tags/v*
+      - refs/tags/helm-*
+      - refs/tags/chart-*
+      - refs/tags/master-*
 
 - name: publish
   image: plugins/docker
@@ -27,13 +48,12 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
-
-trigger:
-  event:
-  - tag
-  ref:
-    exclude:
-    - refs/tags/v*
-    - refs/tags/helm-*
-    - refs/tags/chart-*
-    - refs/tags/master-*
+  when:
+    event:
+    - tag
+    ref:
+      exclude:
+      - refs/tags/v*
+      - refs/tags/helm-*
+      - refs/tags/chart-*
+      - refs/tags/master-*
