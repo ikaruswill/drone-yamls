@@ -7,18 +7,6 @@ platform:
   arch: arm
 
 steps:
-- name: sync-upsteam-tags
-  image: ikaruswill/git
-  commands:
-  - git remote add upstream https://github.com/squaremo/kubeyaml.git
-  - git fetch upstream
-  - git push --tags origin
-  when:
-    branch:
-    - master
-    event:
-    - push
-
 - name: publish
   image: plugins/docker
   settings:
@@ -28,6 +16,30 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
-  when:
-    event:
-    - tag
+trigger:
+  event:
+  - tag
+
+---
+
+kind: pipeline
+name: master-push
+type: kubernetes
+
+platform:
+  os: linux
+  arch: arm
+
+steps:
+- name: sync-upsteam-tags
+  image: ikaruswill/git
+  commands:
+  - git remote add upstream https://github.com/squaremo/kubeyaml.git
+  - git fetch upstream
+  - git push --tags origin
+
+trigger:
+  branch:
+  - master
+  event:
+  - push
