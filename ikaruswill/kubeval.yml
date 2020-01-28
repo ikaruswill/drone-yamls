@@ -1,0 +1,21 @@
+kind: pipeline
+name: default
+type: docker
+
+platform:
+  os: linux
+  arch: arm
+
+steps:
+- name: publish
+  image: plugins/docker
+  settings:
+    repo: ikaruswill/kubeval
+    auto_tag: true
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+trigger:
+  event:
+  - tag
