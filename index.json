@@ -4,5 +4,6 @@
   "https://github.com/ikaruswill/docker-alpine-git.git": "ikaruswill/docker-alpine-git.yml",
   "https://github.com/ikaruswill/flux.git": "ikaruswill/flux.yml",
   "https://github.com/ikaruswill/gitea.git": "ikaruswill/gitea.yml",
-  "https://github.com/ikaruswill/kubeval.git": "ikaruswill/kubeval.yml"
+  "https://github.com/ikaruswill/kubeval.git": "ikaruswill/kubeval.yml",
+  "https://github.com/ikaruswill/kube-state-metrics.git": "ikaruswill/kube-state-metrics.yml"
 }

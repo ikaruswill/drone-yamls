@@ -1,0 +1,26 @@
+kind: pipeline
+name: default
+type: docker
+
+platform:
+  os: linux
+  arch: arm
+
+steps:
+- name: build
+  image: golang:1.13
+  commands:
+  - make build-local
+
+- name: publish
+  image: plugins/docker
+  settings:
+    repo: ikaruswill/kube-state-metrics
+    auto_tag: true
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+trigger:
+  event:
+  - tag
