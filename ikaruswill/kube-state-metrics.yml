@@ -14,9 +14,6 @@ steps:
   image: golang:1.13
   commands:
   - make build-local
-
-- name: publish
-  image: plugins/docker
   resources:
     requests:
       cpu: 1000
@@ -24,6 +21,16 @@ steps:
     limits:
       cpu: 1000
       memory: 200MiB
+
+- name: publish
+  image: plugins/docker
+  resources:
+    requests:
+      cpu: 100
+      memory: 100MiB
+    limits:
+      cpu: 100
+      memory: 100MiB
   settings:
     repo: ikaruswill/kube-state-metrics
     auto_tag: true
