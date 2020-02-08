@@ -1,6 +1,6 @@
 kind: pipeline
 name: default
-type: docker
+type: kubernetes
 
 platform:
   os: linux
@@ -9,6 +9,13 @@ platform:
 steps:
 - name: publish
   image: plugins/docker
+  resources:
+    requests:
+      cpu: 500
+      memory: 100MiB
+    limits:
+      cpu: 500
+      memory: 100MiB
   settings:
     repo: ikaruswill/git
     auto_tag: true
