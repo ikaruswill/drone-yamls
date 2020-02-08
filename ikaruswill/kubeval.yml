@@ -1,6 +1,6 @@
 kind: pipeline
 name: default
-type: docker
+type: kubernetes
 
 platform:
   os: linux
@@ -9,6 +9,13 @@ platform:
 steps:
 - name: publish
   image: plugins/docker
+  resources:
+    requests:
+      cpu: 1000
+      memory: 200MiB
+    limits:
+      cpu: 1000
+      memory: 200MiB
   settings:
     repo: ikaruswill/kubeval
     auto_tag: true
