@@ -1,6 +1,6 @@
 kind: pipeline
 name: default
-type: docker
+type: kubernetes
 
 platform:
   os: linux
@@ -16,6 +16,13 @@ steps:
 
 - name: publish
   image: plugins/docker
+  resources:
+    requests:
+      cpu: 1500
+      memory: 300MiB
+    limits:
+      cpu: 1500
+      memory: 300MiB
   settings:
     repo: ikaruswill/flux
     context: docker/
