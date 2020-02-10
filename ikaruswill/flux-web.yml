@@ -1,0 +1,54 @@
+kind: pipeline
+name: default
+type: kubernetes
+
+platform:
+  os: linux
+  arch: arm
+
+clone:
+  depth: 1
+
+steps:
+- name: publish frontend
+  image: plugins/docker
+  resources:
+    requests:
+      cpu: 1000
+      memory: 300MiB
+    limits:
+      cpu: 1000
+      memory: 300MiB
+  settings:
+    repo: ikaruswill/flux-web-frontend
+    context: frontend/
+    dockerfile: frontend/Dockerfile
+    auto_tag: true
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+
+- name: publish backend
+  image: plugins/docker
+  resources:
+    requests:
+      cpu: 1000
+      memory: 200MiB
+    limits:
+      cpu: 1000
+      memory: 200MiB
+  settings:
+    repo: ikaruswill/flux-web-backend
+    context: backend/
+    dockerfile: backend/Dockerfile
+    auto_tag: true
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+
+trigger:
+  event:
+  - tag
+  - push
