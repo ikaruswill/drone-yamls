@@ -15,10 +15,10 @@ steps:
   resources:
     requests:
       cpu: 1000
-      memory: 200MiB
+      memory: 300MiB
     limits:
       cpu: 1000
-      memory: 200MiB
+      memory: 300MiB
   settings:
     repo: ikaruswill/descheduler
     auto_tag: true
