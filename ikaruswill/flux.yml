@@ -12,7 +12,7 @@ steps:
   commands:
   - git fetch
   - git checkout ikaruswill/arm-docker
-  - git merge $DRONE_COMMIT --no-edit
+  - git merge $DRONE_COMMIT --no-edit --strategy-option theirs
 
 - name: publish
   image: plugins/docker
