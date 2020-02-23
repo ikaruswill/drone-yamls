@@ -17,10 +17,10 @@ steps:
   resources:
     requests:
       cpu: 1000
-      memory: 200MiB
+      memory: 300MiB
     limits:
       cpu: 1000
-      memory: 200MiB
+      memory: 300MiB
 
 - name: publish
   image: plugins/docker
