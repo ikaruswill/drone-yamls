@@ -32,3 +32,16 @@ trigger:
   event:
   - push
   - tag
+
+---
+kind: secret
+name: docker_username
+get:
+  path: drone-secrets
+  name: docker_username
+---
+kind: secret
+name: docker_password
+get:
+  path: drone-secrets
+  name: docker_password
