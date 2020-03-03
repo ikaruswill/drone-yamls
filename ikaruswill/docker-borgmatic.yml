@@ -1,0 +1,47 @@
+kind: pipeline
+name: default
+type: kubernetes
+
+platform:
+  os: linux
+  arch: arm
+
+clone:
+  depth: 1
+
+steps:
+- name: publish
+  image: plugins/docker
+  resources:
+    requests:
+      cpu: 500
+      memory: 100MiB
+    limits:
+      cpu: 500
+      memory: 100MiB
+  settings:
+    repo: ikaruswill/borgmatic
+    auto_tag: true
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+trigger:
+  branch:
+  - master
+  event:
+  - tag
+  - push
+
+---
+kind: secret
+name: docker_username
+get:
+  path: drone-secrets
+  name: docker_username
+---
+kind: secret
+name: docker_password
+get:
+  path: drone-secrets
+  name: docker_password
