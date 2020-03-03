@@ -19,10 +19,10 @@ steps:
   resources:
     requests:
       cpu: 1000
-      memory: 200MiB
+      memory: 300MiB
     limits:
       cpu: 1000
-      memory: 200MiB
+      memory: 300MiB
   settings:
     repo: ikaruswill/gitea
     auto_tag: true
