@@ -27,11 +27,9 @@ steps:
     password:
       from_secret: docker_password
 trigger:
-  branch:
-  - master
-  event:
-  - tag
-  - push
+  ref:
+  - refs/heads/master
+  - refs/tags/*
 
 ---
 kind: secret
