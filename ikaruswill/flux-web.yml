@@ -12,6 +12,8 @@ clone:
 steps:
 - name: publish frontend
   image: plugins/docker
+  environment:
+    PLUGIN_MTU: 1450
   resources:
     requests:
       cpu: 1000
@@ -31,6 +33,8 @@ steps:
 
 - name: publish backend
   image: plugins/docker
+  environment:
+    PLUGIN_MTU: 1450
   resources:
     requests:
       cpu: 1000

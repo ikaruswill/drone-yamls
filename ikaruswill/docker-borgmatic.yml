@@ -12,6 +12,8 @@ clone:
 steps:
 - name: publish
   image: plugins/docker
+  environment:
+    PLUGIN_MTU: 1450
   resources:
     requests:
       cpu: 500
