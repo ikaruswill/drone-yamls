@@ -17,10 +17,10 @@ steps:
   resources:
     requests:
       cpu: 500
-      memory: 100MiB
+      memory: 300MiB
     limits:
       cpu: 500
-      memory: 100MiB
+      memory: 300MiB
   settings:
     repo: ikaruswill/borgmatic
     auto_tag: true
