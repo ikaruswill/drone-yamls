@@ -16,11 +16,11 @@ steps:
     PLUGIN_MTU: 1450
   resources:
     requests:
-      cpu: 1000
-      memory: 300MiB
+      cpu: 500
+      memory: 400MiB
     limits:
-      cpu: 1000
-      memory: 300MiB
+      cpu: 500
+      memory: 400MiB
   settings:
     repo: ikaruswill/descheduler
     auto_tag: true
