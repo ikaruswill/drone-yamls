@@ -1,5 +1,5 @@
 kind: pipeline
-name: default
+name: frontend
 type: kubernetes
 
 platform:
@@ -10,7 +10,7 @@ clone:
   depth: 1
 
 steps:
-- name: publish frontend
+- name: publish
   image: plugins/docker
   environment:
     PLUGIN_MTU: 1450
@@ -31,7 +31,25 @@ steps:
     password:
       from_secret: docker_password
 
-- name: publish backend
+trigger:
+  event:
+  - tag
+  - push
+
+---
+kind: pipeline
+name: backend
+type: kubernetes
+
+platform:
+  os: linux
+  arch: arm
+
+clone:
+  depth: 1
+
+steps:
+- name: publish
   image: plugins/docker
   environment:
     PLUGIN_MTU: 1450
