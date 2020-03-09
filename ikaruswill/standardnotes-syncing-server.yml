@@ -1,0 +1,50 @@
+kind: pipeline
+name: default
+type: kubernetes
+
+platform:
+  os: linux
+  arch: arm
+
+clone:
+  depth: 1
+
+steps:
+- name: publish
+  image: plugins/docker
+  environment:
+    PLUGIN_MTU: 1450
+  resources:
+    requests:
+      cpu: 1000
+      memory: 300MiB
+    limits:
+      cpu: 1000
+      memory: 300MiB
+  settings:
+    repo: ikaruswill/standardnotes-syncing-server
+    build_args:
+    - optimize_for_raspberry_pi=true
+    auto_tag: true
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+trigger:
+  event:
+  - push
+  branch:
+  - master
+
+---
+kind: secret
+name: docker_username
+get:
+  path: drone-secrets
+  name: docker_username
+---
+kind: secret
+name: docker_password
+get:
+  path: drone-secrets
+  name: docker_password
