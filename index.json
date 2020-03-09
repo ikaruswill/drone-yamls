@@ -6,6 +6,5 @@
   "https://github.com/ikaruswill/gitea.git": "ikaruswill/gitea.yml",
   "https://github.com/ikaruswill/kubeval.git": "ikaruswill/kubeval.yml",
   "https://github.com/ikaruswill/kube-state-metrics.git": "ikaruswill/kube-state-metrics.yml",
-  "https://github.com/ikaruswill/flux-web.git": "ikaruswill/flux-web.yml",
   "https://github.com/ikaruswill/docker-borgmatic.git": "ikaruswill/docker-borgmatic.yml"
 }
