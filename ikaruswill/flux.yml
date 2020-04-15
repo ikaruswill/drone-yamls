@@ -36,6 +36,8 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
+node_selector:
+  kubernetes.io/arch: arm
 trigger:
   event:
   - tag
