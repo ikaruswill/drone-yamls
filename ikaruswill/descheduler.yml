@@ -1,5 +1,5 @@
 kind: pipeline
-name: arm
+name: linux-arm
 type: kubernetes
 
 platform:
@@ -24,19 +24,22 @@ steps:
   settings:
     repo: ikaruswill/descheduler
     auto_tag: true
+    auto_tag_suffix: linux-arm
     username:
       from_secret: docker_username
     password:
       from_secret: docker_password
+
 node_selector:
   kubernetes.io/arch: arm
+
 trigger:
   ref:
   - refs/heads/master
   - refs/tags/*
 ---
 kind: pipeline
-name: arm64
+name: linux-arm64
 type: kubernetes
 
 platform:
@@ -61,16 +64,54 @@ steps:
   settings:
     repo: ikaruswill/descheduler
     auto_tag: true
+    auto_tag_suffix: linux-arm64
     username:
       from_secret: docker_username
     password:
       from_secret: docker_password
+
 node_selector:
   kubernetes.io/arch: arm64
+
 trigger:
   ref:
   - refs/heads/master
   - refs/tags/*
+---
+kind: pipeline
+name: manifests
+
+platform:
+  os: linux
+  arch: arm
+
+steps:
+- name: manifest
+  pull: always
+  image: plugins/manifest
+  settings:
+    auto_tag: true
+    ignore_missing: true
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    target: ikaruswill/descheduler:${DRONE_TAG}
+    template: ikaruswill/descheduler:${DRONE_TAG}-OS-ARCH
+
+node_selector:
+  kubernetes.io/arch: arm
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/tags/*
+
+depends_on:
+- linux-arm64
+- linux-arm
+
+
 ---
 kind: secret
 name: docker_username
