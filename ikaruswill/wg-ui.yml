@@ -54,7 +54,7 @@ steps:
       memory: 200MiB
   settings:
     repo: ikaruswill/wg-ui
-    dockerfile: docker/Dockerfile.prebuilt
+    dockerfile: Dockerfile.prebuilt
     auto_tag: true
     username:
       from_secret: docker_username
