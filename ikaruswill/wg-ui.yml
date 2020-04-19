@@ -4,7 +4,7 @@ type: kubernetes
 
 platform:
   os: linux
-  arch: arm
+  arch: arm64
 
 clone:
   depth: 1
@@ -62,7 +62,7 @@ steps:
       from_secret: docker_password
 
 node_selector:
-  kubernetes.io/arch: arm
+  kubernetes.io/arch: arm64
 trigger:
   event:
   - tag
