@@ -24,7 +24,7 @@ steps:
   settings:
     repo: ikaruswill/descheduler
     auto_tag: true
-    auto_tag_suffix: linux-arm
+    # auto_tag_suffix: linux-arm
     username:
       from_secret: docker_username
     password:
@@ -38,83 +38,83 @@ trigger:
   - refs/heads/master
   - refs/tags/*
 
----
-kind: pipeline
-name: linux-arm64
-type: kubernetes
+# ---
+# kind: pipeline
+# name: linux-arm64
+# type: kubernetes
 
-platform:
-  os: linux
-  arch: arm64
+# platform:
+#   os: linux
+#   arch: arm64
 
-clone:
-  depth: 1
+# clone:
+#   depth: 1
 
-steps:
-- name: publish
-  image: plugins/docker
-  environment:
-    PLUGIN_MTU: 1450
-  resources:
-    requests:
-      cpu: 500
-      memory: 400MiB
-    limits:
-      cpu: 500
-      memory: 400MiB
-  settings:
-    repo: ikaruswill/descheduler
-    auto_tag: true
-    auto_tag_suffix: linux-arm64
-    username:
-      from_secret: docker_username
-    password:
-      from_secret: docker_password
+# steps:
+# - name: publish
+#   image: plugins/docker
+#   environment:
+#     PLUGIN_MTU: 1450
+#   resources:
+#     requests:
+#       cpu: 500
+#       memory: 400MiB
+#     limits:
+#       cpu: 500
+#       memory: 400MiB
+#   settings:
+#     repo: ikaruswill/descheduler
+#     auto_tag: true
+#     auto_tag_suffix: linux-arm64
+#     username:
+#       from_secret: docker_username
+#     password:
+#       from_secret: docker_password
 
-node_selector:
-  kubernetes.io/arch: arm64
+# node_selector:
+#   kubernetes.io/arch: arm64
 
-trigger:
-  ref:
-  - refs/heads/master
-  - refs/tags/*
+# trigger:
+#   ref:
+#   - refs/heads/master
+#   - refs/tags/*
 
----
-kind: pipeline
-name: manifests
+# ---
+# kind: pipeline
+# name: manifests
 
-platform:
-  os: linux
-  arch: arm
+# platform:
+#   os: linux
+#   arch: arm
 
-steps:
-- name: manifest
-  pull: always
-  image: plugins/manifest
-  settings:
-    auto_tag: true
-    ignore_missing: true
-    username:
-      from_secret: docker_username
-    password:
-      from_secret: docker_password
-    target: ikaruswill/descheduler:${DRONE_TAG}
-    template: ikaruswill/descheduler:${DRONE_TAG}-OS-ARCH
-    platforms:
-    - linux/arm
-    - linux/arm64
+# steps:
+# - name: manifest
+#   pull: always
+#   image: plugins/manifest
+#   settings:
+#     auto_tag: true
+#     ignore_missing: true
+#     target: ikaruswill/descheduler
+#     template: ikaruswill/descheduler:${DRONE_TAG}-OS-ARCH
+#     platforms:
+#     - linux/arm
+#     - linux/arm64
+#     username:
+#       from_secret: docker_username
+#     password:
+#       from_secret: docker_password
 
-node_selector:
-  kubernetes.io/arch: arm
+# node_selector:
+#   kubernetes.io/arch: arm
 
-trigger:
-  ref:
-  - refs/heads/master
-  - refs/tags/*
+# trigger:
+#   ref:
+#   - refs/heads/master
+#   - refs/tags/*
 
-depends_on:
-- linux-arm
-- linux-arm64
+# depends_on:
+# - linux-arm
+# - linux-arm64
 
 ---
 kind: secret
