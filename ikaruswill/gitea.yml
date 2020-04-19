@@ -7,12 +7,25 @@ platform:
   arch: arm
 
 steps:
-- name: checkout-arm-docker
+- name: checkout-arm-docker-1.10
   image: ikaruswill/git
   commands:
-  - git fetch
-  - git checkout ikaruswill/arm-docker
+  - git fetch origin ikaruswill/arm-docker-1.10
+  - git checkout ikaruswill/arm-docker-1.10
   - git merge $DRONE_COMMIT --no-edit --strategy-option theirs
+  when:
+    ref:
+    - refs/tags/v1.10.*
+
+- name: checkout-arm-docker-1.11
+  image: ikaruswill/git
+  commands:
+  - git fetch origin ikaruswill/arm-docker-1.11
+  - git checkout ikaruswill/arm-docker-1.11
+  - git merge $DRONE_COMMIT --no-edit --strategy-option theirs
+  when:
+    ref:
+    - refs/tags/v1.11.*
 
 - name: publish
   image: plugins/docker
@@ -38,8 +51,8 @@ steps:
 node_selector:
   kubernetes.io/arch: arm
 trigger:
-  event:
-  - tag
+  ref:
+  - refs/tags/*
 
 ---
 kind: secret
