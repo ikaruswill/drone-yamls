@@ -37,6 +37,7 @@ trigger:
   ref:
   - refs/heads/master
   - refs/tags/*
+
 ---
 kind: pipeline
 name: linux-arm64
@@ -77,6 +78,7 @@ trigger:
   ref:
   - refs/heads/master
   - refs/tags/*
+
 ---
 kind: pipeline
 name: manifests
@@ -98,6 +100,9 @@ steps:
       from_secret: docker_password
     target: ikaruswill/descheduler:${DRONE_TAG}
     template: ikaruswill/descheduler:${DRONE_TAG}-OS-ARCH
+    platforms:
+    - linux/arm
+    - linux/arm64
 
 node_selector:
   kubernetes.io/arch: arm
@@ -108,9 +113,8 @@ trigger:
   - refs/tags/*
 
 depends_on:
-- linux-arm64
 - linux-arm
-
+- linux-arm64
 
 ---
 kind: secret
