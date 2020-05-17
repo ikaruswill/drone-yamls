@@ -24,6 +24,7 @@ steps:
   settings:
     repo: ikaruswill/borgmatic
     auto_tag: true
+    context: base/
     dockerfile: base/Dockerfile
     username:
       from_secret: docker_username
