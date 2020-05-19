@@ -52,7 +52,8 @@ node_selector:
   kubernetes.io/arch: arm
 trigger:
   ref:
-  - refs/tags/*
+  - refs/tags/v1.10.*
+  - refs/tags/v1.11.*
 
 ---
 kind: secret
