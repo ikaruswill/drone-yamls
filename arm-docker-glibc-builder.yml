@@ -52,7 +52,7 @@ steps:
   image: plugins/github-release
   settings:
     api_key:
-      from_secret: github_token
+      from_secret: github_release_public_token
     files:
     - glibc-bin-*
     checksum:
@@ -83,3 +83,8 @@ get:
   path: drone-secrets
   name: docker_password
 ---
+kind: secret
+name: github_release_public_token
+get:
+  path: drone-secrets
+  name: github_release_public_token
