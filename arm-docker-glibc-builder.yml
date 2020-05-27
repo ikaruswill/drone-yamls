@@ -9,6 +9,8 @@ platform:
 steps:
 - name: publish
   image: plugins/docker
+  environment:
+    PLUGIN_MTU: 1440
   settings:
     repo: ikaruswill/glibc-builder
     tags:
@@ -17,10 +19,16 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
+  resources:
+    requests:
+      cpu: 100
+      memory: 100MiB
+    limits:
+      cpu: 100
+      memory: 100MiB
   when:
-    event:
-      exclude:
-      - tag
+    ref:
+    - refs/heads/master
 
 - name: build
   image: ikaruswill/glibc-builder
@@ -29,10 +37,16 @@ steps:
     STDOUT: 1
   commands:
   - ./builder > glibc-bin-$GLIBC_VERSION-0-$(uname -m).tar.gz
+  resources:
+    requests:
+      cpu: 1000
+      memory: 300MiB
+    limits:
+      cpu: 1000
+      memory: 300MiB
   when:
-    event:
-    - tag
-  
+    ref:
+    - refs/tags/*
 
 - name: deploy
   image: plugins/github-release
@@ -45,12 +59,27 @@ steps:
     - sha512
     note: '[The GNU C Library](https://www.gnu.org/software/libc/), version ${DRONE_TAG%%-0}.'
   when:
-    event:
-    - tag
+    ref:
+    - refs/tags/*
+
+node_selector:
+  kubernetes.io/arch: arm
 
 trigger:
-  branch:
-  - master
-  event:
-  - tag
-  - push
+  ref:
+  - refs/heads/master
+  - refs/tags/*
+
+---
+kind: secret
+name: docker_username
+get:
+  path: drone-secrets
+  name: docker_username
+---
+kind: secret
+name: docker_password
+get:
+  path: drone-secrets
+  name: docker_password
+---
