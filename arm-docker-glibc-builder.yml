@@ -1,0 +1,56 @@
+kind: pipeline
+name: default
+type: docker
+
+platform:
+  os: linux
+  arch: arm
+
+steps:
+- name: publish
+  image: plugins/docker
+  settings:
+    repo: ikaruswill/glibc-builder
+    tags:
+    - latest
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+  when:
+    event:
+      exclude:
+      - tag
+
+- name: build
+  image: ikaruswill/glibc-builder
+  environment:
+    GLIBC_VERSION: ${DRONE_TAG%%-0}
+    STDOUT: 1
+  commands:
+  - ./builder > glibc-bin-$GLIBC_VERSION-0-$(uname -m).tar.gz
+  when:
+    event:
+    - tag
+  
+
+- name: deploy
+  image: plugins/github-release
+  settings:
+    api_key:
+      from_secret: github_token
+    files:
+    - glibc-bin-*
+    checksum:
+    - sha512
+    note: '[The GNU C Library](https://www.gnu.org/software/libc/), version ${DRONE_TAG%%-0}.'
+  when:
+    event:
+    - tag
+
+trigger:
+  branch:
+  - master
+  event:
+  - tag
+  - push
