@@ -36,7 +36,8 @@ steps:
     GLIBC_VERSION: ${DRONE_TAG%%-0}
     STDOUT: 1
   commands:
-  - ./builder > glibc-bin-$GLIBC_VERSION-0-$(uname -m).tar.gz
+  - cd /
+  - /builder > /drone/src/glibc-bin-$GLIBC_VERSION-0-$(uname -m).tar.gz
   resources:
     requests:
       cpu: 1000
