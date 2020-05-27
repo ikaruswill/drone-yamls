@@ -8,5 +8,5 @@
   "https://github.com/ikaruswill/kube-state-metrics.git": "ikaruswill/kube-state-metrics.yml",
   "https://github.com/ikaruswill/docker-borgmatic.git": "ikaruswill/docker-borgmatic.yml",
   "https://github.com/ikaruswill/wg-ui.git": "ikaruswill/wg-ui.yml",
-  "https://github.com/ikaruswill/arm-docker-glibc-builder": "ikaruswill/arm-docker-glibc-builder.yml"
+  "https://github.com/ikaruswill/arm-docker-glibc-builder.git": "ikaruswill/arm-docker-glibc-builder.yml"
 }
