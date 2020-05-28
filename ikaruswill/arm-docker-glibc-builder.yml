@@ -16,8 +16,7 @@ steps:
     PLUGIN_MTU: 1440
   settings:
     repo: ikaruswill/glibc-builder
-    tags:
-    - latest
+    auto_tag: true
     username:
       from_secret: docker_username
     password:
