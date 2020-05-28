@@ -16,7 +16,9 @@ steps:
     PLUGIN_MTU: 1440
   settings:
     repo: ikaruswill/alpine-abuild
-    auto_tag: true
+    tags:
+    - latest
+    - ${DRONE_TAG}
     username:
       from_secret: docker_username
     password:
