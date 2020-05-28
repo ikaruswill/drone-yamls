@@ -21,6 +21,13 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
+  resources:
+    requests:
+      cpu: 100
+      memory: 100MiB
+    limits:
+      cpu: 100
+      memory: 100MiB
 
 node_selector:
   kubernetes.io/arch: arm
