@@ -10,5 +10,6 @@
   "https://github.com/ikaruswill/wg-ui.git": "ikaruswill/wg-ui.yml",
   "https://github.com/ikaruswill/arm-docker-alpine-abuild.git": "ikaruswill/arm-docker-alpine-abuild.yml",
   "https://github.com/ikaruswill/arm-docker-glibc-builder.git": "ikaruswill/arm-docker-glibc-builder.yml",
-  "https://github.com/ikaruswill/Reactive-Resume.git": "ikaruswill/reactive-resume.yml"
+  "https://github.com/ikaruswill/Reactive-Resume.git": "ikaruswill/reactive-resume.yml",
+  "https://github.com/ikaruswill/docker-wallabag.git": "ikaruswill/docker-wallabag.yml"
 }
