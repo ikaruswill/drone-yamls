@@ -1,5 +1,5 @@
 kind: pipeline
-name: linux-arm
+name: linux-arm64
 type: kubernetes
 
 platform:
