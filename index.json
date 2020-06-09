@@ -13,5 +13,6 @@
   "https://github.com/ikaruswill/Reactive-Resume.git": "ikaruswill/reactive-resume.yml",
   "https://github.com/ikaruswill/docker-wallabag.git": "ikaruswill/docker-wallabag.yml",
   "https://github.com/ikaruswill/docker-leantime.git": "ikaruswill/docker-leantime.yml",
-  "https://github.com/ikaruswill/kutt.git": "ikaruswill/kutt.yml"
+  "https://github.com/ikaruswill/kutt.git": "ikaruswill/kutt.yml",
+  "https://github.com/ikaruswill/shlink.git": "ikaruswill/shlink.yml"
 }
