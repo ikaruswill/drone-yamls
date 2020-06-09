@@ -1,0 +1,78 @@
+kind: pipeline
+name: linux-arm
+type: kubernetes
+
+platform:
+  os: linux
+  arch: arm
+
+clone:
+  depth: 1
+
+steps:
+- name: publish-latest
+  image: plugins/docker
+  environment:
+    PLUGIN_MTU: 1440
+  resources:
+    requests:
+      cpu: 500
+      memory: 300MiB
+    limits:
+      cpu: 1000
+      memory: 300MiB
+  settings:
+    repo: ikaruswill/shlink-web-client
+    auto_tag: true
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+  when:
+    ref:
+    - refs/heads/master
+
+- name: publish-tag
+  image: plugins/docker
+  environment:
+    PLUGIN_MTU: 1440
+  resources:
+    requests:
+      cpu: 500
+      memory: 300MiB
+    limits:
+      cpu: 1000
+      memory: 300MiB
+  settings:
+    repo: ikaruswill/shlink-web-client
+    build_args:
+    - VERSION=${DRONE_TAG}
+    auto_tag: true
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+  when:
+    ref:
+    - refs/tags/*
+
+node_selector:
+  kubernetes.io/arch: arm
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/tags/*
+
+---
+kind: secret
+name: docker_username
+get:
+  path: drone-secrets
+  name: docker_username
+---
+kind: secret
+name: docker_password
+get:
+  path: drone-secrets
+  name: docker_password
