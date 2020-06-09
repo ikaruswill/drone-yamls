@@ -35,7 +35,6 @@ node_selector:
 trigger:
   ref:
   - refs/heads/develop
-  - refs/tags/*
 
 ---
 kind: secret
