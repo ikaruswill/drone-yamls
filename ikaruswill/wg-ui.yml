@@ -26,8 +26,8 @@ steps:
   image: golang:latest
   environment:
     GOOS: linux
-    GOARCH: arm
-    GOARM: '7'
+    GOARCH: arm64
+    # GOARM: '7'
   commands:
   - go get github.com/go-bindata/go-bindata/...
   - go get github.com/elazarl/go-bindata-assetfs/...
@@ -48,10 +48,10 @@ steps:
   resources:
     requests:
       cpu: 100
-      memory: 200MiB
+      memory: 100MiB
     limits:
-      cpu: 1000
-      memory: 200MiB
+      cpu: 100
+      memory: 100MiB
   settings:
     repo: ikaruswill/wg-ui
     dockerfile: Dockerfile.prebuilt
