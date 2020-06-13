@@ -63,10 +63,11 @@ steps:
 
 node_selector:
   kubernetes.io/arch: arm64
+
 trigger:
-  event:
-  - tag
-  - push
+  ref:
+  - refs/heads/master
+  - refs/tags/*
 
 ---
 kind: secret
