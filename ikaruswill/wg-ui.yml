@@ -10,10 +10,10 @@ clone:
   depth: 1
 
 steps:
-- name: publish
-  image: plugins/docker
-  environment:
-    PLUGIN_MTU: 1440
+- name: build frontend
+  image: node:latest
+  commands:
+  - cd ui && npm install && npm run build
   resources:
     requests:
       cpu: 100
@@ -21,8 +21,40 @@ steps:
     limits:
       cpu: 1000
       memory: 300MiB
+
+- name: build backend
+  image: golang:latest
+  environment:
+    GOOS: linux
+    GOARCH: arm
+    GOARM: '7'
+  commands:
+  - go get github.com/go-bindata/go-bindata/...
+  - go get github.com/elazarl/go-bindata-assetfs/...
+  - go-bindata-assetfs -prefix ui/dist ui/dist
+  - go build .
+  resources:
+    requests:
+      cpu: 100
+      memory: 200MiB
+    limits:
+      cpu: 1000
+      memory: 200MiB
+
+- name: publish
+  image: plugins/docker
+  environment:
+    PLUGIN_MTU: 1440
+  resources:
+    requests:
+      cpu: 100
+      memory: 200MiB
+    limits:
+      cpu: 1000
+      memory: 200MiB
   settings:
     repo: ikaruswill/wg-ui
+    dockerfile: Dockerfile.prebuilt
     auto_tag: true
     username:
       from_secret: docker_username
