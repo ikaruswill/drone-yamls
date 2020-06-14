@@ -15,5 +15,6 @@
   "https://github.com/ikaruswill/docker-leantime.git": "ikaruswill/docker-leantime.yml",
   "https://github.com/ikaruswill/kutt.git": "ikaruswill/kutt.yml",
   "https://github.com/ikaruswill/shlink.git": "ikaruswill/shlink.yml",
-  "https://github.com/ikaruswill/commento.git": "ikaruswill/commento.yml"
+  "https://github.com/ikaruswill/commento.git": "ikaruswill/commento.yml",
+  "https://github.com/ikaruswill/MeiliSearch.git": "ikaruswill/meilisearch.yml"
 }
