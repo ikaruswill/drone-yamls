@@ -23,8 +23,8 @@ steps:
       memory: 300MiB
   settings:
     repo: ikaruswill/reactive-resume
-    tags:
-    - latest
+    auto_tag: true
+    auto_tag_suffix: linux-arm64
     username:
       from_secret: docker_username
     password:
@@ -36,6 +36,94 @@ node_selector:
 trigger:
   ref:
   - refs/heads/master
+
+---
+kind: pipeline
+name: linux-arm
+type: kubernetes
+
+platform:
+  os: linux
+  arch: arm
+
+clone:
+  depth: 1
+
+steps:
+- name: publish
+  image: plugins/docker
+  environment:
+    PLUGIN_MTU: 1440
+  resources:
+    requests:
+      cpu: 500
+      memory: 300MiB
+    limits:
+      cpu: 1000
+      memory: 300MiB
+  settings:
+    repo: ikaruswill/reactive-resume
+    auto_tag: true
+    auto_tag_suffix: linux-arm
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+
+node_selector:
+  kubernetes.io/arch: arm
+
+trigger:
+  ref:
+  - refs/heads/master
+
+---
+kind: pipeline
+name: manifests
+type: kubernetes
+
+platform:
+  os: linux
+  arch: arm
+
+clone:
+  disable: true
+
+steps:
+- name: generate manifest
+  image: alpine
+  environment:
+    IMAGE: ${DRONE_REPO_NAME}
+  commands:
+  - |
+    wget -qO - https://raw.githubusercontent.com/ikaruswill/drone-manifests/master/manifest.tmpl \
+    | sed -e "s/\$${IMAGE}/$${IMAGE}/" > manifest.tmpl
+
+- name: push manifest
+  pull: always
+  image: plugins/manifest
+  settings:
+    auto_tag: true
+    ignore_missing: true
+    spec: manifest.tmpl
+    platforms:
+    - linux/arm
+    - linux/arm64
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+
+node_selector:
+  kubernetes.io/arch: arm
+
+trigger:
+  ref:
+  - refs/heads/master
+
+depends_on:
+- linux-arm
+- linux-arm64
 
 ---
 kind: secret
