@@ -7,12 +7,11 @@ platform:
   arch: arm
 
 steps:
-- name: checkout-arm-docker
+- name: checkout arm dockerfile
   image: ikaruswill/git
   commands:
-  - git fetch
-  - git checkout ikaruswill/arm-docker
-  - git merge $DRONE_COMMIT --no-edit --strategy-option theirs
+  - git fetch --no-tags origin ikaruswill/arm-docker:refs/remotes/origin/ikaruswill/arm-docker
+  - git checkout origin/ikaruswill/arm-docker docker/Dockerfile.flux.arm
 
 - name: patch client.go
   image: ikaruswill/git
