@@ -88,6 +88,9 @@ platform:
   os: linux
   arch: arm
 
+clone:
+  disable: true
+
 steps:
 - name: generate manifest
   image: alpine
