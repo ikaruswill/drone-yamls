@@ -88,6 +88,9 @@ platform:
   os: linux
   arch: arm
 
+clone:
+  disable: true
+
 steps:
 - name: generate manifest
   image: alpine
@@ -112,6 +115,7 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
+
 node_selector:
   kubernetes.io/arch: arm
 
