@@ -14,6 +14,12 @@ steps:
   - git checkout ikaruswill/arm-docker
   - git merge $DRONE_COMMIT --no-edit --strategy-option theirs
 
+- name: patch client.go
+  image: ikaruswill/git
+  commands:
+  - git fetch --no-tags origin ikaruswill/multiarch-fix:refs/remotes/origin/ikaruswill/multiarch-fix
+  - git checkout origin/ikaruswill/multiarch-fix pkg/registry/client.go
+
 - name: publish
   image: plugins/docker
   environment:
