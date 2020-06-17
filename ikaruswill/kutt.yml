@@ -36,6 +36,7 @@ node_selector:
 trigger:
   ref:
   - refs/heads/develop
+  - refs/tags/*
 
 ---
 kind: pipeline
@@ -76,6 +77,7 @@ node_selector:
 trigger:
   ref:
   - refs/heads/develop
+  - refs/tags/*
 
 ---
 kind: pipeline
@@ -119,7 +121,7 @@ node_selector:
 
 trigger:
   ref:
-  - refs/heads/master
+  - refs/heads/develop
   - refs/tags/*
 
 depends_on:

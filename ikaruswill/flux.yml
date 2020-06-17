@@ -150,9 +150,14 @@ node_selector:
   kubernetes.io/arch: arm
 
 trigger:
+  event:
+  - tag
   ref:
-  - refs/heads/master
-  - refs/tags/*
+    exclude:
+    - refs/tags/v*
+    - refs/tags/helm-*
+    - refs/tags/chart-*
+    - refs/tags/master-*
 
 depends_on:
 - linux-arm
