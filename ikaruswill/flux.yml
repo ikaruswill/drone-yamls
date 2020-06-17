@@ -16,12 +16,6 @@ steps:
   - git fetch --no-tags origin ikaruswill/arm-docker:refs/remotes/origin/ikaruswill/arm-docker
   - git checkout origin/ikaruswill/arm-docker docker/Dockerfile.flux.arm
 
-- name: patch client.go
-  image: ikaruswill/git
-  commands:
-  - git fetch --no-tags origin ikaruswill/multiarch-fix:refs/remotes/origin/ikaruswill/multiarch-fix
-  - git checkout origin/ikaruswill/multiarch-fix pkg/registry/client.go
-
 - name: publish
   image: plugins/docker
   environment:
