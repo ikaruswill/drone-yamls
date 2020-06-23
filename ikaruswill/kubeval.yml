@@ -68,6 +68,7 @@ steps:
     auto_tag_suffix: linux-arm64
     build_args:
     - CGO_ENABLED=0
+    - GO111MODULE=off
     username:
       from_secret: docker_username
     password:
