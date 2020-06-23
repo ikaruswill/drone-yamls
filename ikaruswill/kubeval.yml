@@ -38,7 +38,7 @@ trigger:
   - refs/heads/master
   - refs/tags/*
 
----
+# ---
 # kind: pipeline
 # name: linux-arm64
 # type: kubernetes
