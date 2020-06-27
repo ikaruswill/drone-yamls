@@ -67,7 +67,7 @@ steps:
       from_secret: docker_password
 
 node_selector:
-  kubernetes.io/arch: arm64
+  kubernetes.io/arch: arm
 
 trigger:
   ref:
