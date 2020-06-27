@@ -30,6 +30,7 @@ steps:
   - rm ./target/release/deps/bitwarden_rs_ldap*
   - cargo build --release
   - cp target/release/bitwarden_rs_ldap ../bitwarden_rs_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
+  - sha512sum ../bitwarden_rs_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH} > ../sha512sum-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}.txt
 
 - name: release
   image: plugins/github-release
@@ -38,10 +39,9 @@ steps:
       from_secret: github_release_public_token
     files:
     - bitwarden_rs_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
-    checksum:
-    - sha512
-    title: ${DRONE_TAG}'
-    note: 'LDAP Addon for Bitwarden_rs, version ${DRONE_TAG}'
+    - sha512sum-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}.txt
+    title: ${DRONE_TAG}
+    note: 'LDAP addon for Bitwarden_rs, version ${DRONE_TAG}'
   when:
     ref:
     - refs/tags/*
@@ -107,6 +107,7 @@ steps:
   - rm ./target/release/deps/bitwarden_rs_ldap*
   - cargo build --release
   - cp target/release/bitwarden_rs_ldap ../bitwarden_rs_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
+  - sha512sum ../bitwarden_rs_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH} > ../sha512sum-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}.txt
 
 - name: release
   image: plugins/github-release
@@ -115,10 +116,8 @@ steps:
       from_secret: github_release_public_token
     files:
     - bitwarden_rs_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
-    checksum:
-    - sha512
-    title: ${DRONE_TAG}'
-    note: 'LDAP Addon for Bitwarden_rs, version ${DRONE_TAG}'
+    title: ${DRONE_TAG}
+    note: 'LDAP addon for Bitwarden_rs, version ${DRONE_TAG}'
   when:
     ref:
     - refs/tags/*
