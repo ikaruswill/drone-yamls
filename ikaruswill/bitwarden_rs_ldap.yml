@@ -70,7 +70,7 @@ steps:
   - cp ../src/* src/
   - rm ./target/release/deps/bitwarden_rs_ldap*
   - cargo build --release
-  - cp target/release/bitwarden_rs_ldap ../bitwarden_rs_ldap-$DRONE_PLATFORM_OS-$DRONE_PLATFORM_ARCH
+  - cp target/release/bitwarden_rs_ldap ../bitwarden_rs_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
 
 - name: release
   image: plugins/github-release
@@ -78,10 +78,10 @@ steps:
     api_key:
       from_secret: github_release_public_token
     files:
-    - bitwarden_rs_ldap-${DRONE_PLATFORM_OS}-${DRONE_PLATFORM_ARCH}
+    - bitwarden_rs_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
     checksum:
     - sha512
-    title: '${DRONE_TAG}'
+    title: ${DRONE_TAG}'
     note: 'LDAP Addon for Bitwarden_rs, version ${DRONE_TAG}'
   when:
     ref:
@@ -101,9 +101,6 @@ steps:
     repo: ikaruswill/bitwarden_rs_ldap
     auto_tag: true
     auto_tag_suffix: linux-arm64
-    build_args:
-      BUILD_OS: ${DRONE_PLATFORM_OS}
-      BUILD_ARCH: ${DRONE_PLATFORM_ARCH}
     dockerfile: Dockerfile.arm
     username:
       from_secret: docker_username
