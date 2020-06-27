@@ -83,6 +83,7 @@ steps:
     - GITEA_VERSION=${DRONE_TAG}
     - BINARY_OS=linux
     - BINARY_ARCH=arm64
+    dockerfile: Dockerfile.arm
     username:
       from_secret: docker_username
     password:
