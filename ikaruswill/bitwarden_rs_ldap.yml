@@ -22,7 +22,7 @@
 #       cpu: 2000
 #       memory: 200MiB
 #   settings:
-#     repo: ikaruswill/bitwarden_rs_ldap
+#     repo: ${DRONE_REPO}
 #     auto_tag: true
 #     auto_tag_suffix: linux-arm
 #     username:
@@ -98,7 +98,7 @@ steps:
   environment:
     PLUGIN_MTU: 1440
   settings:
-    repo: ikaruswill/bitwarden_rs_ldap
+    repo: ${DRONE_REPO}
     auto_tag: true
     auto_tag_suffix: linux-arm64
     dockerfile: Dockerfile.arm
