@@ -59,10 +59,10 @@ steps:
   resources:
     requests:
       cpu: 1000
-      memory: 300MiB
+      memory: 400MiB
     limits:
       cpu: 2000
-      memory: 300MiB
+      memory: 400MiB
   settings:
     repo: ikaruswill/bitwarden_rs-mysql
     auto_tag: true
