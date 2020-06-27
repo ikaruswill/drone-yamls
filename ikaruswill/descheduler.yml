@@ -22,7 +22,7 @@ steps:
       cpu: 500
       memory: 400MiB
   settings:
-    repo: ikaruswill/descheduler
+    repo: ${DRONE_REPO}
     auto_tag: true
     auto_tag_suffix: linux-arm
     username:
@@ -63,7 +63,7 @@ steps:
       cpu: 500
       memory: 400MiB
   settings:
-    repo: ikaruswill/descheduler
+    repo: ${DRONE_REPO}
     auto_tag: true
     auto_tag_suffix: linux-arm64
     username:

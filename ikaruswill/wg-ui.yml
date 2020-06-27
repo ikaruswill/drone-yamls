@@ -53,7 +53,7 @@ steps:
       cpu: 100
       memory: 100MiB
   settings:
-    repo: ikaruswill/wg-ui
+    repo: ${DRONE_REPO}
     dockerfile: Dockerfile.prebuilt
     auto_tag: true
     username:
