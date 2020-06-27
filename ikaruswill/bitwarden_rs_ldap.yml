@@ -1,44 +1,80 @@
-# kind: pipeline
-# name: linux-arm
-# type: kubernetes
+kind: pipeline
+name: linux-arm
+type: kubernetes
 
-# platform:
-#   os: linux
-#   arch: arm
+platform:
+  os: linux
+  arch: arm
 
-# clone:
-#   depth: 1
+clone:
+  depth: 1
 
-# steps:
-# - name: publish
-#   image: plugins/docker
-#   environment:
-#     PLUGIN_MTU: 1440
-#   resources:
-#     requests:
-#       cpu: 1000
-#       memory: 200MiB
-#     limits:
-#       cpu: 2000
-#       memory: 200MiB
-#   settings:
-#     repo: ${DRONE_REPO}
-#     auto_tag: true
-#     auto_tag_suffix: linux-arm
-#     username:
-#       from_secret: docker_username
-#     password:
-#       from_secret: docker_password
+steps:
+- name: build
+  image: rust:1.33
+  resources:
+    requests:
+      cpu: 1000
+      memory: 200MiB
+    limits:
+      cpu: 2000
+      memory: 200MiB
+  commands:
+  - USER=root cargo new --bin bitwarden_rs_ldap
+  - cd bitwarden_rs_ldap
+  - cp ../Cargo.toml ./
+  - cp ../Cargo.lock ./
+  - cargo build --release
+  - rm src/*.rs
+  - cp ../src/* src/
+  - rm ./target/release/deps/bitwarden_rs_ldap*
+  - cargo build --release
+  - cp target/release/bitwarden_rs_ldap ../bitwarden_rs_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
 
-# node_selector:
-#   kubernetes.io/arch: arm
+- name: release
+  image: plugins/github-release
+  settings:
+    api_key:
+      from_secret: github_release_public_token
+    files:
+    - bitwarden_rs_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
+    checksum:
+    - sha512
+    title: ${DRONE_TAG}'
+    note: 'LDAP Addon for Bitwarden_rs, version ${DRONE_TAG}'
+  when:
+    ref:
+    - refs/tags/*
 
-# trigger:
-#   ref:
-#   - refs/heads/master
-#   - refs/tags/*
+- name: checkout arm dockerfile
+  image: ikaruswill/git
+  commands:
+  - git fetch --no-tags origin ikaruswill/arm-docker:refs/remotes/origin/ikaruswill/arm-docker
+  - git checkout origin/ikaruswill/arm-docker Dockerfile.arm
 
-# ---
+- name: publish
+  image: plugins/docker
+  environment:
+    PLUGIN_MTU: 1440
+  settings:
+    repo: ${DRONE_REPO}
+    auto_tag: true
+    auto_tag_suffix: linux-arm
+    dockerfile: Dockerfile.arm
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+
+node_selector:
+  kubernetes.io/arch: arm64
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/tags/*
+
+---
 kind: pipeline
 name: linux-arm64
 type: kubernetes
@@ -115,54 +151,54 @@ trigger:
   - refs/heads/master
   - refs/tags/*
 
-# ---
-# kind: pipeline
-# name: manifests
-# type: kubernetes
+---
+kind: pipeline
+name: manifests
+type: kubernetes
 
-# platform:
-#   os: linux
-#   arch: arm
+platform:
+  os: linux
+  arch: arm
 
-# clone:
-#   disable: true
+clone:
+  disable: true
 
-# steps:
-# - name: generate manifest
-#   image: alpine
-#   environment:
-#     IMAGE: ${DRONE_REPO_NAME}
-#   commands:
-#   - |
-#     wget -qO - https://raw.githubusercontent.com/ikaruswill/drone-manifests/master/manifest.tmpl \
-#     | sed -e "s/\$${IMAGE}/$${IMAGE}/" > manifest.tmpl
+steps:
+- name: generate manifest
+  image: alpine
+  environment:
+    IMAGE: ${DRONE_REPO_NAME}
+  commands:
+  - |
+    wget -qO - https://raw.githubusercontent.com/ikaruswill/drone-manifests/master/manifest.tmpl \
+    | sed -e "s/\$${IMAGE}/$${IMAGE}/" > manifest.tmpl
 
-# - name: push manifest
-#   pull: always
-#   image: plugins/manifest
-#   settings:
-#     auto_tag: true
-#     ignore_missing: true
-#     spec: manifest.tmpl
-#     platforms:
-#     - linux/arm
-#     - linux/arm64
-#     username:
-#       from_secret: docker_username
-#     password:
-#       from_secret: docker_password
+- name: push manifest
+  pull: always
+  image: plugins/manifest
+  settings:
+    auto_tag: true
+    ignore_missing: true
+    spec: manifest.tmpl
+    platforms:
+    - linux/arm
+    - linux/arm64
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
 
-# node_selector:
-#   kubernetes.io/arch: arm
+node_selector:
+  kubernetes.io/arch: arm
 
-# trigger:
-#   ref:
-#   - refs/heads/master
-#   - refs/tags/*
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/tags/*
 
-# depends_on:
-# - linux-arm
-# - linux-arm64
+depends_on:
+- linux-arm
+- linux-arm64
 
 ---
 kind: secret
