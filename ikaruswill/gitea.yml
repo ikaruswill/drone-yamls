@@ -22,18 +22,20 @@ steps:
     PLUGIN_MTU: 1440
   resources:
     requests:
-      cpu: 1000
-      memory: 300MiB
+      cpu: 500
+      memory: 100MiB
     limits:
-      cpu: 1000
-      memory: 300MiB
+      cpu: 500
+      memory: 100MiB
   settings:
-    repo: ikaruswill/gitea
+    repo: ${DRONE_REPO}
     auto_tag: true
     auto_tag_suffix: linux-arm
-    dockerfile: Dockerfile.arm
     build_args:
     - GITEA_VERSION=${DRONE_TAG}
+    - BINARY_OS=linux
+    - BINARY_ARCH=arm-6
+    dockerfile: Dockerfile.arm
     username:
       from_secret: docker_username
     password:
@@ -68,18 +70,19 @@ steps:
     PLUGIN_MTU: 1440
   resources:
     requests:
-      cpu: 1000
-      memory: 300MiB
+      cpu: 500
+      memory: 100MiB
     limits:
-      cpu: 1000
-      memory: 300MiB
+      cpu: 500
+      memory: 100MiB
   settings:
-    repo: ikaruswill/gitea
+    repo: ${DRONE_REPO}
     auto_tag: true
     auto_tag_suffix: linux-arm64
-    dockerfile: Dockerfile.arm
     build_args:
     - GITEA_VERSION=${DRONE_TAG}
+    - BINARY_OS=linux
+    - BINARY_ARCH=arm64
     username:
       from_secret: docker_username
     password:
