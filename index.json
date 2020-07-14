@@ -22,5 +22,6 @@
   "https://github.com/ikaruswill/bitwarden_rs_ldap.git": "ikaruswill/bitwarden_rs_ldap.yml",
   "https://github.com/ikaruswill/bitwarden_rs.git": "ikaruswill/bitwarden_rs.yml",
   "https://github.com/ikaruswill/rocket.chat.git": "ikaruswill/rocket.chat.yml",
-  "https://github.com/ikaruswill/drone-email.git": "ikaruswill/drone-email.yml"
+  "https://github.com/ikaruswill/drone-email.git": "ikaruswill/drone-email.yml",
+  "https://github.com/ikaruswill/filebrowser.git": "ikaruswill/filebrowser.yml"
 }
