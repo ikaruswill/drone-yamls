@@ -10,6 +10,12 @@ clone:
   depth: 1
 
 steps:
+- name: checkout arm dockerfile
+  image: ikaruswill/git
+  commands:
+  - git fetch --no-tags origin ikaruswill/arm-docker:refs/remotes/origin/ikaruswill/arm-docker
+  - git checkout origin/ikaruswill/arm-docker Dockerfile
+
 - name: publish
   image: plugins/docker
   environment:
