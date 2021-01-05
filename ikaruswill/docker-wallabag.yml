@@ -1,45 +1,4 @@
 kind: pipeline
-name: linux-arm
-type: kubernetes
-
-platform:
-  os: linux
-  arch: arm
-
-clone:
-  depth: 1
-
-steps:
-- name: publish
-  image: plugins/docker
-  environment:
-    PLUGIN_MTU: 1440
-  resources:
-    requests:
-      cpu: 500
-      memory: 200MiB
-    limits:
-      cpu: 500
-      memory: 200MiB
-  settings:
-    repo: ikaruswill/wallabag
-    auto_tag: true
-    auto_tag_suffix: linux-arm
-    username:
-      from_secret: docker_username
-    password:
-      from_secret: docker_password
-
-node_selector:
-  kubernetes.io/arch: arm
-
-trigger:
-  ref:
-  - refs/heads/master
-  - refs/tags/*
-
----
-kind: pipeline
 name: linux-arm64
 type: kubernetes
 
@@ -81,12 +40,53 @@ trigger:
 
 ---
 kind: pipeline
+name: linux-amd64
+type: kubernetes
+
+platform:
+  os: linux
+  arch: amd64
+
+clone:
+  depth: 1
+
+steps:
+- name: publish
+  image: plugins/docker
+  environment:
+    PLUGIN_MTU: 1440
+  resources:
+    requests:
+      cpu: 500
+      memory: 200MiB
+    limits:
+      cpu: 500
+      memory: 200MiB
+  settings:
+    repo: ikaruswill/wallabag
+    auto_tag: true
+    auto_tag_suffix: linux-amd64
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+
+node_selector:
+  kubernetes.io/arch: amd64
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/tags/*
+
+---
+kind: pipeline
 name: manifests
 type: kubernetes
 
 platform:
   os: linux
-  arch: arm
+  arch: arm64
 
 clone:
   disable: true
@@ -109,15 +109,15 @@ steps:
     ignore_missing: true
     spec: manifest.tmpl
     platforms:
-    - linux/arm
     - linux/arm64
+    - linux/amd64
     username:
       from_secret: docker_username
     password:
       from_secret: docker_password
 
 node_selector:
-  kubernetes.io/arch: arm
+  kubernetes.io/arch: arm64
 
 trigger:
   ref:
@@ -125,8 +125,8 @@ trigger:
   - refs/tags/*
 
 depends_on:
-- linux-arm
 - linux-arm64
+- linux-amd64
 
 ---
 kind: secret

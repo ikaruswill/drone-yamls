@@ -1,10 +1,10 @@
 kind: pipeline
-name: linux-arm
+name: linux-arm64
 type: kubernetes
 
 platform:
   os: linux
-  arch: arm
+  arch: arm64
 
 clone:
   depth: 1
@@ -59,7 +59,7 @@ steps:
   settings:
     repo: ${DRONE_REPO}
     auto_tag: true
-    auto_tag_suffix: linux-arm
+    auto_tag_suffix: linux-arm64
     dockerfile: Dockerfile.arm
     username:
       from_secret: docker_username
@@ -67,7 +67,7 @@ steps:
       from_secret: docker_password
 
 node_selector:
-  kubernetes.io/arch: arm
+  kubernetes.io/arch: arm64
 
 trigger:
   ref:
@@ -76,12 +76,12 @@ trigger:
 
 ---
 kind: pipeline
-name: linux-arm64
+name: linux-amd64
 type: kubernetes
 
 platform:
   os: linux
-  arch: arm64
+  arch: amd64
 
 clone:
   depth: 1
@@ -122,12 +122,6 @@ steps:
     ref:
     - refs/tags/*
 
-- name: checkout arm dockerfile
-  image: ikaruswill/git
-  commands:
-  - git fetch --no-tags origin ikaruswill/arm-docker:refs/remotes/origin/ikaruswill/arm-docker
-  - git checkout origin/ikaruswill/arm-docker Dockerfile.arm
-
 - name: publish
   image: plugins/docker
   environment:
@@ -135,15 +129,14 @@ steps:
   settings:
     repo: ${DRONE_REPO}
     auto_tag: true
-    auto_tag_suffix: linux-arm64
-    dockerfile: Dockerfile.arm
+    auto_tag_suffix: linux-amd64
     username:
       from_secret: docker_username
     password:
       from_secret: docker_password
 
 node_selector:
-  kubernetes.io/arch: arm64
+  kubernetes.io/arch: amd64
 
 trigger:
   ref:
@@ -157,7 +150,7 @@ type: kubernetes
 
 platform:
   os: linux
-  arch: arm
+  arch: arm64
 
 clone:
   disable: true
@@ -180,15 +173,15 @@ steps:
     ignore_missing: true
     spec: manifest.tmpl
     platforms:
-    - linux/arm
     - linux/arm64
+    - linux/amd64
     username:
       from_secret: docker_username
     password:
       from_secret: docker_password
 
 node_selector:
-  kubernetes.io/arch: arm
+  kubernetes.io/arch: arm64
 
 trigger:
   ref:
@@ -196,8 +189,8 @@ trigger:
   - refs/tags/*
 
 depends_on:
-- linux-arm
 - linux-arm64
+- linux-amd64
 
 ---
 kind: secret

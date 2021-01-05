@@ -1,56 +1,4 @@
 kind: pipeline
-name: linux-arm
-type: kubernetes
-
-platform:
-  os: linux
-  arch: arm
-
-clone:
-  depth: 1
-
-steps:
-- name: checkout arm dockerfile
-  image: ikaruswill/git
-  commands:
-  - git fetch --no-tags origin ikaruswill/arm-docker:refs/remotes/origin/ikaruswill/arm-docker
-  - git checkout origin/ikaruswill/arm-docker Dockerfile.arm
-
-- name: publish
-  image: plugins/docker
-  environment:
-    PLUGIN_MTU: 1440
-  resources:
-    requests:
-      cpu: 1000
-      memory: 100MiB
-    limits:
-      cpu: 1000
-      memory: 100MiB
-  settings:
-    repo: ${DRONE_REPO}
-    auto_tag: true
-    auto_tag_suffix: linux-arm
-    build_args:
-    - GOOS=${DRONE_STAGE_OS}
-    - GOARCH=${DRONE_STAGE_ARCH}
-    - GOARM=7
-    dockerfile: Dockerfile.arm
-    username:
-      from_secret: docker_username
-    password:
-      from_secret: docker_password
-
-node_selector:
-  kubernetes.io/arch: arm
-
-trigger:
-  ref:
-  - refs/heads/master
-  - refs/tags/*
-
----
-kind: pipeline
 name: linux-arm64
 type: kubernetes
 
@@ -102,12 +50,56 @@ trigger:
 
 ---
 kind: pipeline
+name: linux-amd64
+type: kubernetes
+
+platform:
+  os: linux
+  arch: amd64
+
+clone:
+  depth: 1
+
+steps:
+- name: publish
+  image: plugins/docker
+  environment:
+    PLUGIN_MTU: 1440
+  resources:
+    requests:
+      cpu: 1000
+      memory: 100MiB
+    limits:
+      cpu: 1000
+      memory: 100MiB
+  settings:
+    repo: ${DRONE_REPO}
+    auto_tag: true
+    auto_tag_suffix: linux-amd64
+    build_args:
+    - GOOS=${DRONE_STAGE_OS}
+    - GOARCH=${DRONE_STAGE_ARCH}
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+
+node_selector:
+  kubernetes.io/arch: amd64
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/tags/*
+
+---
+kind: pipeline
 name: manifests
 type: kubernetes
 
 platform:
   os: linux
-  arch: arm
+  arch: arm64
 
 clone:
   disable: true
@@ -130,15 +122,15 @@ steps:
     ignore_missing: true
     spec: manifest.tmpl
     platforms:
-    - linux/arm
     - linux/arm64
+    - linux/amd64
     username:
       from_secret: docker_username
     password:
       from_secret: docker_password
 
 node_selector:
-  kubernetes.io/arch: arm
+  kubernetes.io/arch: arm64
 
 trigger:
   ref:
@@ -146,8 +138,8 @@ trigger:
   - refs/tags/*
 
 depends_on:
-- linux-arm
 - linux-arm64
+- linux-amd64
 
 ---
 kind: secret
