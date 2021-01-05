@@ -5,7 +5,6 @@
   "https://github.com/ikaruswill/flux.git": "ikaruswill/flux.yml",
   "https://github.com/ikaruswill/gitea.git": "ikaruswill/gitea.yml",
   "https://github.com/ikaruswill/kubeval.git": "ikaruswill/kubeval.yml",
-  "https://github.com/ikaruswill/docker-borgmatic.git": "ikaruswill/docker-borgmatic.yml",
   "https://github.com/ikaruswill/wg-ui.git": "ikaruswill/wg-ui.yml",
   "https://github.com/ikaruswill/arm-docker-alpine-abuild.git": "ikaruswill/arm-docker-alpine-abuild.yml",
   "https://github.com/ikaruswill/arm-docker-glibc-builder.git": "ikaruswill/arm-docker-glibc-builder.yml",

@@ -5,5 +5,6 @@
   "https://github.com/ikaruswill/commento.git": "ikaruswill/commento.yml",
   "https://github.com/ikaruswill/drone-tree-config.git": "ikaruswill/drone-tree-config.yml",
   "https://github.com/ikaruswill/bitwarden_rs_ldap.git": "ikaruswill/bitwarden_rs_ldap.yml",
-  "https://github.com/ikaruswill/drone-email.git": "ikaruswill/drone-email.yml"
+  "https://github.com/ikaruswill/drone-email.git": "ikaruswill/drone-email.yml",
+  "https://github.com/ikaruswill/docker-borgmatic.git": "ikaruswill/docker-borgmatic.yml"
 }
