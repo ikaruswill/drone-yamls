@@ -1,0 +1,21 @@
+{
+  "https://github.com/ikaruswill/kubeyaml.git": "ikaruswill/kubeyaml.yml",
+  "https://github.com/ikaruswill/descheduler.git": "ikaruswill/descheduler.yml",
+  "https://github.com/ikaruswill/docker-alpine-git.git": "ikaruswill/docker-alpine-git.yml",
+  "https://github.com/ikaruswill/flux.git": "ikaruswill/flux.yml",
+  "https://github.com/ikaruswill/gitea.git": "ikaruswill/gitea.yml",
+  "https://github.com/ikaruswill/kubeval.git": "ikaruswill/kubeval.yml",
+  "https://github.com/ikaruswill/docker-borgmatic.git": "ikaruswill/docker-borgmatic.yml",
+  "https://github.com/ikaruswill/wg-ui.git": "ikaruswill/wg-ui.yml",
+  "https://github.com/ikaruswill/arm-docker-alpine-abuild.git": "ikaruswill/arm-docker-alpine-abuild.yml",
+  "https://github.com/ikaruswill/arm-docker-glibc-builder.git": "ikaruswill/arm-docker-glibc-builder.yml",
+  "https://github.com/ikaruswill/docker-leantime.git": "ikaruswill/docker-leantime.yml",
+  "https://github.com/ikaruswill/kutt.git": "ikaruswill/kutt.yml",
+  "https://github.com/ikaruswill/shlink.git": "ikaruswill/shlink.yml",
+  "https://github.com/ikaruswill/MeiliSearch.git": "ikaruswill/meilisearch.yml",
+  "https://github.com/ikaruswill/flux-web.git": "ikaruswill/flux-web.yml",
+  "https://github.com/ikaruswill/bitwarden_rs.git": "ikaruswill/bitwarden_rs.yml",
+  "https://github.com/ikaruswill/rocket.chat.git": "ikaruswill/rocket.chat.yml",
+  "https://github.com/ikaruswill/drone-email.git": "ikaruswill/drone-email.yml",
+  "https://github.com/ikaruswill/filebrowser.git": "ikaruswill/filebrowser.yml"
+}
