@@ -1,5 +1,4 @@
 {
-  "https://github.com/ikaruswill/kube-state-metrics.git": "ikaruswill/kube-state-metrics.yml",
   "https://github.com/ikaruswill/Reactive-Resume.git": "ikaruswill/reactive-resume.yml",
   "https://github.com/ikaruswill/docker-wallabag.git": "ikaruswill/docker-wallabag.yml",
   "https://github.com/ikaruswill/commento.git": "ikaruswill/commento.yml",
