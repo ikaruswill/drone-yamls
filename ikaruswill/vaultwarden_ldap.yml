@@ -112,6 +112,7 @@ steps:
       from_secret: github_release_public_token
     files:
     - vaultwarden_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
+    - sha512sum-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}.txt
     title: ${DRONE_TAG}
     note: 'LDAP addon for Vaultwarden, version ${DRONE_TAG}'
   when:
