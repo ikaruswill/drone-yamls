@@ -119,7 +119,7 @@ steps:
     - refs/tags/*
 
 - name: checkout custom dockerfile
-  image: ikaruswill/git
+  image: alpine/git
   commands:
   - git fetch --no-tags origin ikaruswill/arm-docker:refs/remotes/origin/ikaruswill/arm-docker
   - git checkout origin/ikaruswill/arm-docker Dockerfile_custom
