@@ -100,7 +100,7 @@ steps:
   - cp ../Cargo.toml ../Cargo.lock ./
   - cargo build --locked --release
   - rm ./target/release/deps/vaultwarden_ldap*
-  - cp ../src src
+  - cp -r ../src src
   - cargo build --release
   - cp target/release/vaultwarden_ldap ../vaultwarden_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
   - sha512sum ../vaultwarden_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH} > ../sha512sum-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}.txt
