@@ -44,11 +44,11 @@ steps:
     ref:
     - refs/tags/*
 
-- name: checkout arm dockerfile
+- name: checkout custom dockerfile
   image: ikaruswill/git
   commands:
   - git fetch --no-tags origin ikaruswill/arm-docker:refs/remotes/origin/ikaruswill/arm-docker
-  - git checkout origin/ikaruswill/arm-docker Dockerfile.arm
+  - git checkout origin/ikaruswill/arm-docker Dockerfile_custom
 
 - name: publish
   image: plugins/docker
@@ -58,7 +58,7 @@ steps:
     repo: ${DRONE_REPO}
     auto_tag: true
     auto_tag_suffix: linux-arm64
-    dockerfile: Dockerfile.arm
+    dockerfile: Dockerfile_custom
     username:
       from_secret: docker_username
     password:
@@ -118,6 +118,12 @@ steps:
     ref:
     - refs/tags/*
 
+- name: checkout custom dockerfile
+  image: ikaruswill/git
+  commands:
+  - git fetch --no-tags origin ikaruswill/arm-docker:refs/remotes/origin/ikaruswill/arm-docker
+  - git checkout origin/ikaruswill/arm-docker Dockerfile_custom
+
 - name: publish
   image: plugins/docker
   environment:
@@ -126,6 +132,7 @@ steps:
     repo: ${DRONE_REPO}
     auto_tag: true
     auto_tag_suffix: linux-amd64
+    dockerfile: Dockerfile_custom
     username:
       from_secret: docker_username
     password:
