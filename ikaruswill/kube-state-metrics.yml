@@ -11,7 +11,7 @@ clone:
 
 steps:
 - name: build
-  image: golang:1.13
+  image: golang:1.16
   commands:
   - make build-local
   resources:
@@ -64,7 +64,7 @@ clone:
 
 steps:
 - name: build
-  image: golang:1.13
+  image: golang:1.16
   commands:
   - make build-local
   resources:
