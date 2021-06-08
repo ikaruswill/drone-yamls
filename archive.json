@@ -13,7 +13,7 @@
   "https://github.com/ikaruswill/shlink.git": "ikaruswill/shlink.yml",
   "https://github.com/ikaruswill/MeiliSearch.git": "ikaruswill/meilisearch.yml",
   "https://github.com/ikaruswill/flux-web.git": "ikaruswill/flux-web.yml",
-  "https://github.com/ikaruswill/bitwarden_rs.git": "ikaruswill/bitwarden_rs.yml",
+  "https://github.com/ikaruswill/vaultwarden.git": "ikaruswill/vaultwarden.yml",
   "https://github.com/ikaruswill/rocket.chat.git": "ikaruswill/rocket.chat.yml",
   "https://github.com/ikaruswill/drone-email.git": "ikaruswill/drone-email.yml",
   "https://github.com/ikaruswill/filebrowser.git": "ikaruswill/filebrowser.yml"

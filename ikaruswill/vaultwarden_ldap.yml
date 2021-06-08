@@ -11,7 +11,7 @@ clone:
 
 steps:
 - name: build
-  image: rust:1.33
+  image: rust:1.46
   resources:
     requests:
       cpu: 1000
@@ -20,17 +20,15 @@ steps:
       cpu: 2000
       memory: 200MiB
   commands:
-  - USER=root cargo new --bin bitwarden_rs_ldap
-  - cd bitwarden_rs_ldap
-  - cp ../Cargo.toml ./
-  - cp ../Cargo.lock ./
+  - USER=root cargo new --bin vaultwarden_ldap
+  - cd vaultwarden_ldap
+  - cp ../Cargo.toml ../Cargo.lock ./
+  - cargo build --locked --release
+  - rm ./target/release/deps/vaultwarden_ldap*
+  - cp -r ../src src
   - cargo build --release
-  - rm src/*.rs
-  - cp ../src/* src/
-  - rm ./target/release/deps/bitwarden_rs_ldap*
-  - cargo build --release
-  - cp target/release/bitwarden_rs_ldap ../bitwarden_rs_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
-  - sha512sum ../bitwarden_rs_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH} > ../sha512sum-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}.txt
+  - cp target/release/vaultwarden_ldap ../vaultwarden_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
+  - sha512sum ../vaultwarden_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH} > ../sha512sum-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}.txt
 
 - name: release
   image: plugins/github-release
@@ -38,10 +36,10 @@ steps:
     api_key:
       from_secret: github_release_public_token
     files:
-    - bitwarden_rs_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
+    - vaultwarden_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
     - sha512sum-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}.txt
     title: ${DRONE_TAG}
-    note: 'LDAP addon for Bitwarden_rs, version ${DRONE_TAG}'
+    note: 'LDAP addon for Vaultwarden, version ${DRONE_TAG}'
   when:
     ref:
     - refs/tags/*
@@ -88,7 +86,7 @@ clone:
 
 steps:
 - name: build
-  image: rust:1.33
+  image: rust:1.46
   resources:
     requests:
       cpu: 1000
@@ -97,17 +95,15 @@ steps:
       cpu: 2000
       memory: 200MiB
   commands:
-  - USER=root cargo new --bin bitwarden_rs_ldap
-  - cd bitwarden_rs_ldap
-  - cp ../Cargo.toml ./
-  - cp ../Cargo.lock ./
+  - USER=root cargo new --bin vaultwarden_ldap
+  - cd vaultwarden_ldap
+  - cp ../Cargo.toml ../Cargo.lock ./
+  - cargo build --locked --release
+  - rm ./target/release/deps/vaultwarden_ldap*
+  - cp ../src src
   - cargo build --release
-  - rm src/*.rs
-  - cp ../src/* src/
-  - rm ./target/release/deps/bitwarden_rs_ldap*
-  - cargo build --release
-  - cp target/release/bitwarden_rs_ldap ../bitwarden_rs_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
-  - sha512sum ../bitwarden_rs_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH} > ../sha512sum-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}.txt
+  - cp target/release/vaultwarden_ldap ../vaultwarden_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
+  - sha512sum ../vaultwarden_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH} > ../sha512sum-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}.txt
 
 - name: release
   image: plugins/github-release
@@ -115,9 +111,9 @@ steps:
     api_key:
       from_secret: github_release_public_token
     files:
-    - bitwarden_rs_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
+    - vaultwarden_ldap-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
     title: ${DRONE_TAG}
-    note: 'LDAP addon for Bitwarden_rs, version ${DRONE_TAG}'
+    note: 'LDAP addon for Vaultwarden, version ${DRONE_TAG}'
   when:
     ref:
     - refs/tags/*
