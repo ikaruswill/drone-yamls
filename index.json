@@ -6,5 +6,6 @@
   "https://github.com/ikaruswill/vaultwarden_ldap.git": "ikaruswill/vaultwarden_ldap.yml",
   "https://github.com/ikaruswill/drone-email.git": "ikaruswill/drone-email.yml",
   "https://github.com/ikaruswill/docker-borgmatic.git": "ikaruswill/docker-borgmatic.yml",
-  "https://github.com/ikaruswill/sn-auth.git": "ikaruswill/sn-auth.yml"
+  "https://github.com/ikaruswill/sn-auth.git": "ikaruswill/sn-auth.yml",
+  "https://github.com/ikaruswill/sn-api-gateway.git": "ikaruswill/sn-api-gateway.yml"
 }
