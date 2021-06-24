@@ -10,6 +10,12 @@ clone:
   depth: 1
 
 steps:
+- name: get dockerfile
+  image: alpine/git
+  commands:
+  - git fetch --no-tags origin ikaruswill/Dockerfile:refs/remotes/origin/ikaruswill/Dockerfile
+  - git checkout origin/ikaruswill/Dockerfile Dockerfile
+
 - name: publish
   image: plugins/docker
   environment:
@@ -51,6 +57,12 @@ clone:
   depth: 1
 
 steps:
+- name: get dockerfile
+  image: alpine/git
+  commands:
+  - git fetch --no-tags origin ikaruswill/Dockerfile:refs/remotes/origin/ikaruswill/Dockerfile
+  - git checkout origin/ikaruswill/Dockerfile Dockerfile
+
 - name: publish
   image: plugins/docker
   environment:
