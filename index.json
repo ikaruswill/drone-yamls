@@ -8,5 +8,6 @@
   "https://github.com/ikaruswill/docker-borgmatic.git": "ikaruswill/docker-borgmatic.yml",
   "https://github.com/ikaruswill/sn-auth.git": "ikaruswill/sn-auth.yml",
   "https://github.com/ikaruswill/sn-api-gateway.git": "ikaruswill/sn-api-gateway.yml",
-  "https://github.com/ikaruswill/sn-syncing-server-js.git": "ikaruswill/sn-syncing-server-js.yml"
+  "https://github.com/ikaruswill/sn-syncing-server-js.git": "ikaruswill/sn-syncing-server-js.yml",
+  "https://github.com/ikaruswill/sn-web.git": "ikaruswill/sn-web.yml"
 }
