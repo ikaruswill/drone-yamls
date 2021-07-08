@@ -23,10 +23,10 @@ steps:
   resources:
     requests:
       cpu: 1000
-      memory: 300MiB
+      memory: 400MiB
     limits:
       cpu: 1500
-      memory: 300MiB
+      memory: 400MiB
   settings:
     repo: ${DRONE_REPO}
     auto_tag: true
