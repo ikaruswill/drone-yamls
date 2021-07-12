@@ -23,8 +23,8 @@ steps:
       memory: 100MiB
   settings:
     repo: ikaruswill/alpine-abuild
-    tags:
-    - linux-arm64
+    auto_tag: true
+    auto_tag_suffix: linux-arm64
     username:
       from_secret: docker_username
     password:
@@ -90,8 +90,8 @@ steps:
       memory: 100MiB
   settings:
     repo: ikaruswill/alpine-abuild
-    tags:
-    - linux-amd64
+    auto_tag: true
+    auto_tag_suffix: linux-amd64
     username:
       from_secret: docker_username
     password:
@@ -157,6 +157,8 @@ steps:
   pull: always
   image: plugins/manifest
   settings:
+    auto_tag: true
+    ignore_missing: true
     spec: manifest.tmpl
     platforms:
     - linux/arm64
@@ -174,6 +176,7 @@ steps:
   image: plugins/manifest
   settings:
     tag: ${DRONE_TAG##v}
+    ignore_missing: true
     spec: manifest.tmpl
     platforms:
     - linux/arm64
