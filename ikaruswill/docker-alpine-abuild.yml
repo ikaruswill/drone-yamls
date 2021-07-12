@@ -47,7 +47,7 @@ steps:
   settings:
     repo: ikaruswill/alpine-abuild
     tags:
-    - ${DRONE_TAG}-linux-arm64
+    - ${DRONE_TAG##v}-linux-arm64
     username:
       from_secret: docker_username
     password:
@@ -114,7 +114,7 @@ steps:
   settings:
     repo: ikaruswill/alpine-abuild
     tags:
-    - ${DRONE_TAG}-linux-amd64
+    - ${DRONE_TAG##v}-linux-amd64
     username:
       from_secret: docker_username
     password:
@@ -173,7 +173,7 @@ steps:
   pull: always
   image: plugins/manifest
   settings:
-    tag: ${DRONE_TAG}
+    tag: ${DRONE_TAG##v}
     spec: manifest.tmpl
     platforms:
     - linux/arm64
