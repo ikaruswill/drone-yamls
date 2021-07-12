@@ -24,8 +24,6 @@ steps:
 
 - name: publish
   image: plugins/docker
-  environment:
-    PLUGIN_MTU: 1440
   resources:
     requests:
       cpu: 100
@@ -77,8 +75,6 @@ steps:
 
 - name: publish
   image: plugins/docker
-  environment:
-    PLUGIN_MTU: 1440
   resources:
     requests:
       cpu: 100

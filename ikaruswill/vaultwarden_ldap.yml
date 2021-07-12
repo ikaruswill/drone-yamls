@@ -52,8 +52,6 @@ steps:
 
 - name: publish
   image: plugins/docker
-  environment:
-    PLUGIN_MTU: 1440
   settings:
     repo: ${DRONE_REPO}
     auto_tag: true
@@ -127,8 +125,6 @@ steps:
 
 - name: publish
   image: plugins/docker
-  environment:
-    PLUGIN_MTU: 1440
   settings:
     repo: ${DRONE_REPO}
     auto_tag: true
