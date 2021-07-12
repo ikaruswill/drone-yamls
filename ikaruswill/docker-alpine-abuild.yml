@@ -14,6 +14,7 @@ steps:
   image: plugins/docker
   environment:
     PLUGIN_MTU: 1440
+    DRONE_TAG: ${DRONE_TAG#v}
   resources:
     requests:
       cpu: 500
@@ -55,6 +56,7 @@ steps:
   image: plugins/docker
   environment:
     PLUGIN_MTU: 1440
+    DRONE_TAG: ${DRONE_TAG#v}
   resources:
     requests:
       cpu: 500
