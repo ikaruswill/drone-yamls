@@ -140,6 +140,7 @@ steps:
   environment:
     GLIBC_VERSION: ${DRONE_TAG%%-0}
     STDOUT: 1
+    WORKSPACE_DIR: /drone/src
   resources:
     requests:
       cpu: 1000
@@ -149,8 +150,8 @@ steps:
       memory: 300MiB
   commands:
   - cd /
-  - /builder > /drone/src/glibc-bin-$GLIBC_VERSION-0-$(uname -m).tar.gz
-  
+  - /builder > ${WORKSPACE_DIR}/glibc-bin-${GLIBC_VERSION}-0-$(uname -m).tar.gz
+  - sha512sum ${WORKSPACE_DIR}/glibc-bin-${GLIBC_VERSION}-0-$(uname -m).tar.gz > ${WORKSPACE_DIR}/glibc-bin-${GLIBC_VERSION}-0-$(uname -m).sha512sum
 
 - name: release
   image: plugins/github-release
@@ -159,8 +160,7 @@ steps:
       from_secret: github_release_public_token
     files:
     - glibc-bin-*
-    checksum:
-    - sha512
+    - 
     note: '[The GNU C Library](https://www.gnu.org/software/libc/), version ${DRONE_TAG%%-0}.'
 
 node_selector:
@@ -189,6 +189,7 @@ steps:
   environment:
     GLIBC_VERSION: ${DRONE_TAG%%-0}
     STDOUT: 1
+    WORKSPACE_DIR: /drone/src
   resources:
     requests:
       cpu: 1000
@@ -198,7 +199,8 @@ steps:
       memory: 300MiB
   commands:
   - cd /
-  - /builder > /drone/src/glibc-bin-$GLIBC_VERSION-0-$(uname -m).tar.gz
+  - /builder > ${WORKSPACE_DIR}/glibc-bin-${GLIBC_VERSION}-0-$(uname -m).tar.gz
+  - sha512sum ${WORKSPACE_DIR}/glibc-bin-${GLIBC_VERSION}-0-$(uname -m).tar.gz > ${WORKSPACE_DIR}/glibc-bin-${GLIBC_VERSION}-0-$(uname -m).sha512sum
 
 - name: release
   image: plugins/github-release
@@ -207,8 +209,6 @@ steps:
       from_secret: github_release_public_token
     files:
     - glibc-bin-*
-    checksum:
-    - sha512
     note: '[The GNU C Library](https://www.gnu.org/software/libc/), version ${DRONE_TAG%%-0}.'
 
 node_selector:
