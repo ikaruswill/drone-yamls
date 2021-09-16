@@ -10,12 +10,6 @@ clone:
   depth: 1
 
 steps:
-- name: checkout arm dockerfile
-  image: ikaruswill/git
-  commands:
-  - git fetch --no-tags origin ikaruswill/arm-docker:refs/remotes/origin/ikaruswill/arm-docker
-  - git checkout origin/ikaruswill/arm-docker Dockerfile
-
 - name: publish
   image: plugins/docker
   resources:
@@ -28,7 +22,7 @@ steps:
   settings:
     repo: ikaruswill/reactive-resume
     auto_tag: true
-    # auto_tag_suffix: linux-arm64
+    auto_tag_suffix: linux-arm64
     username:
       from_secret: docker_username
     password:
@@ -41,93 +35,92 @@ trigger:
   ref:
   - refs/heads/master
 
-# ---
-# kind: pipeline
-# name: linux-arm
-# type: kubernetes
+---
+kind: pipeline
+name: linux-amd64
+type: kubernetes
 
-# platform:
-#   os: linux
-#   arch: arm
+platform:
+  os: linux
+  arch: amd64
 
-# clone:
-#   depth: 1
+clone:
+  depth: 1
 
-# steps:
-# - name: publish
-#   image: plugins/docker
-#   environment:
-#     PLUGIN_MTU: 1440
-#   resources:
-#     requests:
-#       cpu: 500
-#       memory: 300MiB
-#     limits:
-#       cpu: 1000
-#       memory: 300MiB
-#   settings:
-#     repo: ikaruswill/reactive-resume
-#     auto_tag: true
-#     auto_tag_suffix: linux-arm
-#     username:
-#       from_secret: docker_username
-#     password:
-#       from_secret: docker_password
+steps:
+- name: publish
+  image: plugins/docker
+  resources:
+    requests:
+      cpu: 500
+      memory: 300MiB
+    limits:
+      cpu: 1000
+      memory: 300MiB
+  settings:
+    repo: ikaruswill/reactive-resume
+    auto_tag: true
+    auto_tag_suffix: linux-amd64
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
 
-# node_selector:
-#   kubernetes.io/arch: arm
+node_selector:
+  kubernetes.io/arch: amd64
 
-# trigger:
-#   ref:
-#   - refs/heads/master
+trigger:
+  ref:
+  - refs/heads/master
 
-# ---
-# kind: pipeline
-# name: manifests
-# type: kubernetes
+---
+kind: pipeline
+name: manifests
+type: kubernetes
 
-# platform:
-#   os: linux
-#   arch: arm
+platform:
+  os: linux
+  arch: arm64
 
-# clone:
-#   disable: true
+clone:
+  disable: true
 
-# steps:
-# - name: generate manifest
-#   image: alpine
-#   environment:
-#     IMAGE: ${DRONE_REPO_NAME}
-#   commands:
-#   - |
-#     wget -qO - https://raw.githubusercontent.com/ikaruswill/drone-manifests/master/manifest.tmpl \
-#     | sed -e "s/\$${IMAGE}/$${IMAGE}/" > manifest.tmpl
+steps:
+- name: generate manifest
+  image: alpine
+  environment:
+    IMAGE: ${DRONE_REPO_NAME}
+  commands:
+  - |
+    wget -qO - https://raw.githubusercontent.com/ikaruswill/drone-manifests/master/manifest.tmpl \
+    | sed -e "s/\$${IMAGE}/$${IMAGE}/" > manifest.tmpl
 
-# - name: push manifest
-#   pull: always
-#   image: plugins/manifest
-#   settings:
-#     auto_tag: true
-#     ignore_missing: true
-#     spec: manifest.tmpl
-#     platforms:
-#     - linux/arm
-#     - linux/arm64
-#     username:
-#       from_secret: docker_username
-#     password:
-#       from_secret: docker_password
+- name: push manifest
+  pull: always
+  image: plugins/manifest
+  settings:
+    auto_tag: true
+    ignore_missing: true
+    spec: manifest.tmpl
+    platforms:
+    - linux/arm64
+    - linux/amd64
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
 
-# node_selector:
-#   kubernetes.io/arch: arm
+node_selector:
+  kubernetes.io/arch: arm64
 
-# trigger:
-#   ref:
-#   - refs/heads/master
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/tags/*
 
-# depends_on:
-# - linux-arm
-# - linux-arm64
+depends_on:
+- linux-arm64
+- linux-amd64
 
 ---
 kind: secret
