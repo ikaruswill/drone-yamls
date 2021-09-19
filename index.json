@@ -11,5 +11,6 @@
   "https://github.com/ikaruswill/sn-syncing-server-js.git": "ikaruswill/sn-syncing-server-js.yml",
   "https://github.com/ikaruswill/sn-web.git": "ikaruswill/sn-web.yml",
   "https://github.com/ikaruswill/docker-alpine-abuild.git": "ikaruswill/docker-alpine-abuild.yml",
-  "https://github.com/ikaruswill/docker-glibc-builder.git": "ikaruswill/docker-glibc-builder.yml"
+  "https://github.com/ikaruswill/docker-glibc-builder.git": "ikaruswill/docker-glibc-builder.yml",
+  "https://github.com/ikaruswill/remark42.git": "ikaruswill/remark42.yml"
 }
