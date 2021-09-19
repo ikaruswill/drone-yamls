@@ -10,6 +10,11 @@ clone:
   depth: 1
 
 steps:
+- name: modify dockerfile
+  image: alpine
+  commands:
+  - cat Dockerfile | sed -e "s/\buildgo-v1.6.1/buildgo-v1.7.0/" > Dockerfile
+
 - name: publish
   image: plugins/docker
   resources:
@@ -49,6 +54,11 @@ clone:
   depth: 1
 
 steps:
+- name: modify dockerfile
+  image: alpine
+  commands:
+  - cat Dockerfile | sed -e "s/\buildgo-v1.6.1/buildgo-v1.7.0/" > Dockerfile
+
 - name: publish
   image: plugins/docker
   resources:
