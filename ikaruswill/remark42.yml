@@ -33,6 +33,11 @@ steps:
     repo: ${DRONE_REPO}
     auto_tag: true
     auto_tag_suffix: linux-arm64
+    build_args:
+    - SKIP_BACKEND_TEST=1
+    - DRONE=${DRONE}
+    - DRONE_TAG=${DRONE_TAG}
+    - DRONE_COMMIT=${DRONE_COMMIT}
     username:
       from_secret: docker_username
     password:
@@ -82,6 +87,11 @@ steps:
     repo: ${DRONE_REPO}
     auto_tag: true
     auto_tag_suffix: linux-amd64
+    build_args:
+    - SKIP_BACKEND_TEST=1
+    - DRONE=${DRONE}
+    - DRONE_TAG=${DRONE_TAG}
+    - DRONE_COMMIT=${DRONE_COMMIT}
     username:
       from_secret: docker_username
     password:
