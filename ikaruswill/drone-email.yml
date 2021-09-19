@@ -9,6 +9,11 @@ platform:
 clone:
   depth: 1
 
+resources:
+  requests:
+    cpu: 500
+    memory: 100MiB
+
 steps:
 - name: checkout arm dockerfile
   image: ikaruswill/git
@@ -19,9 +24,6 @@ steps:
 - name: publish
   image: plugins/docker
   resources:
-    requests:
-      cpu: 1000
-      memory: 100MiB
     limits:
       cpu: 1000
       memory: 100MiB
@@ -58,13 +60,15 @@ platform:
 clone:
   depth: 1
 
+resources:
+  requests:
+    cpu: 500
+    memory: 100MiB
+
 steps:
 - name: publish
   image: plugins/docker
   resources:
-    requests:
-      cpu: 1000
-      memory: 100MiB
     limits:
       cpu: 1000
       memory: 100MiB

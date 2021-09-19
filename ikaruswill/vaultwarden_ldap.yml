@@ -9,6 +9,11 @@ platform:
 clone:
   depth: 1
 
+resources:
+  requests:
+    cpu: 1000
+    memory: 300MiB
+
 steps:
 - name: build
   image: rust:1.46

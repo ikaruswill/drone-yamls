@@ -9,13 +9,15 @@ platform:
 clone:
   depth: 1
 
+resources:
+  requests:
+    cpu: 500
+    memory: 100MiB
+
 steps:
 - name: publish (master)
   image: plugins/docker
   resources:
-    requests:
-      cpu: 500
-      memory: 100MiB
     limits:
       cpu: 500
       memory: 100MiB
@@ -34,9 +36,6 @@ steps:
 - name: publish (tag)
   image: plugins/docker
   resources:
-    requests:
-      cpu: 500
-      memory: 100MiB
     limits:
       cpu: 500
       memory: 100MiB
@@ -72,13 +71,15 @@ platform:
 clone:
   depth: 1
 
+resources:
+  requests:
+    cpu: 500
+    memory: 100MiB
+
 steps:
 - name: publish (master)
   image: plugins/docker
   resources:
-    requests:
-      cpu: 500
-      memory: 100MiB
     limits:
       cpu: 500
       memory: 100MiB
@@ -97,9 +98,6 @@ steps:
 - name: publish (tag)
   image: plugins/docker
   resources:
-    requests:
-      cpu: 500
-      memory: 100MiB
     limits:
       cpu: 500
       memory: 100MiB

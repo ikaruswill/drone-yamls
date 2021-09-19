@@ -9,6 +9,11 @@ platform:
 clone:
   depth: 1
 
+resources:
+  requests:
+    cpu: 1000
+    memory: 300MiB
+
 steps:
 - name: get dockerfile
   image: alpine/git
@@ -19,12 +24,9 @@ steps:
 - name: publish
   image: plugins/docker
   resources:
-    requests:
-      cpu: 1000
-      memory: 512MiB
     limits:
       cpu: 1500
-      memory: 512MiB
+      memory: 300MiB
   settings:
     repo: ${DRONE_REPO}
     auto_tag: true
@@ -54,6 +56,11 @@ platform:
 clone:
   depth: 1
 
+resources:
+  requests:
+    cpu: 1000
+    memory: 300MiB
+
 steps:
 - name: get dockerfile
   image: alpine/git
@@ -64,12 +71,9 @@ steps:
 - name: publish
   image: plugins/docker
   resources:
-    requests:
-      cpu: 1000
-      memory: 512MiB
     limits:
       cpu: 1500
-      memory: 512MiB
+      memory: 300MiB
   settings:
     repo: ${DRONE_REPO}
     auto_tag: true

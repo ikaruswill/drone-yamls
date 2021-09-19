@@ -9,13 +9,15 @@ platform:
 clone:
   depth: 1
 
+resources:
+  requests:
+    cpu: 500
+    memory: 200MiB
+
 steps:
 - name: publish
   image: plugins/docker
   resources:
-    requests:
-      cpu: 500
-      memory: 200MiB
     limits:
       cpu: 500
       memory: 200MiB
@@ -48,13 +50,15 @@ platform:
 clone:
   depth: 1
 
+resources:
+  requests:
+    cpu: 500
+    memory: 200MiB
+
 steps:
 - name: publish
   image: plugins/docker
   resources:
-    requests:
-      cpu: 500
-      memory: 200MiB
     limits:
       cpu: 500
       memory: 200MiB
