@@ -12,7 +12,7 @@ clone:
 resources:
   requests:
     cpu: 500
-    memory: 300MiB
+    memory: 1GiB
 
 steps:
 - name: modify dockerfile
@@ -23,12 +23,9 @@ steps:
 - name: publish
   image: plugins/docker
   resources:
-    requests:
-      cpu: 500
-      memory: 300MiB
     limits:
       cpu: 1000
-      memory: 300MiB
+      memory: 1GiB
   settings:
     repo: ${DRONE_REPO}
     auto_tag: true
@@ -66,7 +63,7 @@ clone:
 resources:
   requests:
     cpu: 500
-    memory: 300MiB
+    memory: 1GiB
 
 steps:
 - name: modify dockerfile
@@ -77,12 +74,9 @@ steps:
 - name: publish
   image: plugins/docker
   resources:
-    requests:
-      cpu: 500
-      memory: 300MiB
     limits:
       cpu: 1000
-      memory: 300MiB
+      memory: 1GiB
   settings:
     repo: ${DRONE_REPO}
     auto_tag: true

@@ -9,16 +9,18 @@ platform:
 clone:
   depth: 1
 
+resources:
+  requests:
+    cpu: 500
+    memory: 768MiB
+
 steps:
 - name: publish
   image: plugins/docker
   resources:
-    requests:
-      cpu: 500
-      memory: 300MiB
     limits:
       cpu: 1000
-      memory: 300MiB
+      memory: 768MiB
   settings:
     repo: ikaruswill/reactive-resume
     auto_tag: true
@@ -50,7 +52,7 @@ clone:
 resources:
   requests:
     cpu: 500
-    memory: 300MiB
+    memory: 768MiB
 
 steps:
 - name: publish
@@ -58,7 +60,7 @@ steps:
   resources:
     limits:
       cpu: 1000
-      memory: 300MiB
+      memory: 768MiB
   settings:
     repo: ikaruswill/reactive-resume
     auto_tag: true
