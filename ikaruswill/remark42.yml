@@ -9,6 +9,11 @@ platform:
 clone:
   depth: 1
 
+resources:
+  requests:
+    cpu: 500
+    memory: 300MiB
+
 steps:
 - name: modify dockerfile
   image: alpine
@@ -52,6 +57,11 @@ platform:
 
 clone:
   depth: 1
+
+resources:
+  requests:
+    cpu: 500
+    memory: 300MiB
 
 steps:
 - name: modify dockerfile
