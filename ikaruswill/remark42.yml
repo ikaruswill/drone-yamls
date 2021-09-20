@@ -25,7 +25,7 @@ steps:
   image: plugins/docker
   resources:
     limits:
-      cpu: 1000
+      cpu: 2000
       memory: 1GiB
   settings:
     repo: ${DRONE_REPO}
@@ -64,7 +64,7 @@ clone:
 resources:
   requests:
     cpu: 500
-    memory: 1GiB
+    memory: 1.5GiB
 
 steps:
 - name: modify dockerfile
@@ -78,7 +78,7 @@ steps:
   resources:
     limits:
       cpu: 1000
-      memory: 1GiB
+      memory: 2GiB
   settings:
     repo: ${DRONE_REPO}
     auto_tag: true
