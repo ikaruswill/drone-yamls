@@ -58,7 +58,7 @@ clone:
 
 resources:
   requests:
-    cpu: 1000
+    cpu: 500
     memory: 768MiB
 
 steps:
@@ -72,8 +72,8 @@ steps:
   image: plugins/docker
   resources:
     limits:
-      cpu: 1500
       memory: 768MiB
+      cpu: 1000
   settings:
     repo: ${DRONE_REPO}
     auto_tag: true
