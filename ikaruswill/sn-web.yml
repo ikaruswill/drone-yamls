@@ -11,7 +11,7 @@ clone:
 
 resources:
   requests:
-    cpu: 1000
+    cpu: 500
     memory: 400MiB
 
 steps:
@@ -58,7 +58,7 @@ clone:
 
 resources:
   requests:
-    cpu: 1000
+    cpu: 500
     memory: 300MiB
 
 steps:
