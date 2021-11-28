@@ -1,0 +1,148 @@
+kind: pipeline
+name: linux-arm64
+type: kubernetes
+
+platform:
+  os: linux
+  arch: arm64
+
+clone:
+  depth: 1
+
+resources:
+  requests:
+    cpu: 500
+    memory: 300MiB
+
+steps:
+- name: publish keycloak
+  image: plugins/docker
+  resources:
+    limits:
+      cpu: 1000
+      memory: 300MiB
+  settings:
+    repo: ikaruswill/keycloak
+    auto_tag: true
+    auto_tag_suffix: linux-arm64
+    build_args:
+    - KEYCLOAK_DIST=https://github.com/keycloak/keycloak/releases/download/${DRONE_TAG}/keycloak-${DRONE_TAG}.tar.gz
+    context: server/
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+
+node_selector:
+  kubernetes.io/arch: arm64
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/tags/*
+
+---
+kind: pipeline
+name: linux-amd64
+type: kubernetes
+
+platform:
+  os: linux
+  arch: amd64
+
+clone:
+  depth: 1
+
+resources:
+  requests:
+    cpu: 500
+    memory: 300MiB
+
+steps:
+- name: publish keycloak
+  image: plugins/docker
+  resources:
+    limits:
+      cpu: 1000
+      memory: 300MiB
+  settings:
+    repo: ikaruswill/keycloak
+    auto_tag: true
+    auto_tag_suffix: linux-arm64
+    build_args:
+    - KEYCLOAK_DIST=https://github.com/keycloak/keycloak/releases/download/${DRONE_TAG}/keycloak-${DRONE_TAG}.tar.gz
+    context: server/
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+
+node_selector:
+  kubernetes.io/arch: amd64
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/tags/*
+
+---
+kind: pipeline
+name: manifests
+type: kubernetes
+
+platform:
+  os: linux
+  arch: arm64
+
+clone:
+  disable: true
+
+steps:
+- name: generate manifest
+  image: alpine
+  environment:
+    IMAGE: ikaruswill/keycloak
+  commands:
+  - |
+    wget -qO - https://raw.githubusercontent.com/ikaruswill/drone-manifests/master/manifest.tmpl \
+    | sed -e "s/\$${IMAGE}/$${IMAGE}/" > manifest.tmpl
+
+- name: push manifest
+  pull: always
+  image: plugins/manifest
+  settings:
+    auto_tag: true
+    ignore_missing: true
+    spec: manifest.tmpl
+    platforms:
+    - linux/arm64
+    - linux/amd64
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+
+node_selector:
+  kubernetes.io/arch: arm64
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/tags/*
+
+depends_on:
+- linux-arm64
+- linux-amd64
+
+---
+kind: secret
+name: docker_username
+get:
+  path: drone-secrets
+  name: docker_username
+---
+kind: secret
+name: docker_password
+get:
+  path: drone-secrets
+  name: docker_password

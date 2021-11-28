@@ -13,5 +13,6 @@
   "https://github.com/ikaruswill/docker-alpine-abuild.git": "ikaruswill/docker-alpine-abuild.yml",
   "https://github.com/ikaruswill/docker-glibc-builder.git": "ikaruswill/docker-glibc-builder.yml",
   "https://github.com/ikaruswill/remark42.git": "ikaruswill/remark42.yml",
-  "https://github.com/ikaruswill/argo-cd.git": "ikaruswill/argo-cd.yml"
+  "https://github.com/ikaruswill/argo-cd.git": "ikaruswill/argo-cd.yml",
+  "https://github.com/ikaruswill/keycloak-containers.git": "ikaruswill/keycloak-containers.yml"
 }
