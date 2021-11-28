@@ -12,7 +12,7 @@ clone:
 resources:
   requests:
     cpu: 500
-    memory: 300MiB
+    memory: 200MiB
 
 steps:
 - name: publish keycloak
@@ -65,7 +65,7 @@ steps:
   resources:
     limits:
       cpu: 1000
-      memory: 300MiB
+      memory: 200MiB
   settings:
     repo: ikaruswill/keycloak
     auto_tag: true
