@@ -103,7 +103,7 @@ steps:
 - name: generate manifest
   image: alpine
   environment:
-    IMAGE: ikaruswill/keycloak
+    IMAGE: keycloak
   commands:
   - |
     wget -qO - https://raw.githubusercontent.com/ikaruswill/drone-manifests/master/manifest.tmpl \
