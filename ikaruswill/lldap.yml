@@ -12,7 +12,7 @@ clone:
 resources:
   requests:
     cpu: 500
-    memory: 100MiB
+    memory: 200MiB
 
 steps:
 - name: publish
@@ -20,7 +20,7 @@ steps:
   resources:
     limits:
       cpu: 1000
-      memory: 100MiB
+      memory: 300MiB
   settings:
     repo: ikaruswill/lldap
     auto_tag: true
@@ -53,7 +53,7 @@ clone:
 resources:
   requests:
     cpu: 500
-    memory: 100MiB
+    memory: 300MiB
 
 steps:
 - name: publish
@@ -61,7 +61,7 @@ steps:
   resources:
     limits:
       cpu: 1000
-      memory: 100MiB
+      memory: 200MiB
   settings:
     repo: ikaruswill/lldap
     auto_tag: true
