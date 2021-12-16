@@ -15,7 +15,7 @@ resources:
     memory: 200MiB
 
 steps:
-- name: publish keycloak
+- name: publish
   image: plugins/docker
   resources:
     limits:
@@ -60,7 +60,7 @@ resources:
     memory: 300MiB
 
 steps:
-- name: publish keycloak
+- name: publish
   image: plugins/docker
   resources:
     limits:
