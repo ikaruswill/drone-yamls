@@ -15,5 +15,6 @@
   "https://github.com/ikaruswill/remark42.git": "ikaruswill/remark42.yml",
   "https://github.com/ikaruswill/argo-cd.git": "ikaruswill/argo-cd.yml",
   "https://github.com/ikaruswill/keycloak-containers.git": "ikaruswill/keycloak-containers.yml",
+  "https://github.com/ikaruswill/speedtest-go.git": "ikaruswill/speedtest-go.yml",
   "https://github.com/ikaruswill/lldap.git": "ikaruswill/lldap.yml"
 }
