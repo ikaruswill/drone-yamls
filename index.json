@@ -15,5 +15,6 @@
   "https://github.com/ikaruswill/remark42.git": "ikaruswill/remark42.yml",
   "https://github.com/ikaruswill/keycloak-containers.git": "ikaruswill/keycloak-containers.yml",
   "https://github.com/ikaruswill/speedtest-go.git": "ikaruswill/speedtest-go.yml",
-  "https://github.com/ikaruswill/lldap.git": "ikaruswill/lldap.yml"
+  "https://github.com/ikaruswill/lldap.git": "ikaruswill/lldap.yml",
+  "https://github.com/ikaruswill/your_spotify.git": "ikaruswill/your_spotify.yml"
 }

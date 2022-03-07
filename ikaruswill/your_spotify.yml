@@ -1,0 +1,281 @@
+kind: pipeline
+name: linux-arm64-server
+type: kubernetes
+
+platform:
+  os: linux
+  arch: arm64
+
+clone:
+  depth: 1
+
+resources:
+  requests:
+    cpu: 1000
+    memory: 300MiB
+
+steps:
+- name: publish server
+  image: plugins/docker
+  resources:
+    limits:
+      cpu: 1500
+      memory: 300MiB
+  settings:
+    repo: ikaruswill/your-spotify
+    context: server/
+    dockerfile: server/Dockerfile.production
+    auto_tag: true
+    auto_tag_suffix: linux-arm64
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+
+node_selector:
+  kubernetes.io/arch: arm64
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/tags/*
+
+---
+kind: pipeline
+name: linux-amd64-server
+type: kubernetes
+
+platform:
+  os: linux
+  arch: amd64
+
+clone:
+  depth: 1
+
+resources:
+  requests:
+    cpu: 200
+    memory: 300MiB
+
+steps:
+- name: publish server
+  image: plugins/docker
+  resources:
+    limits:
+      cpu: 1500
+      memory: 300MiB
+  settings:
+    repo: ikaruswill/your-spotify
+    context: server/
+    dockerfile: server/Dockerfile.production
+    auto_tag: true
+    auto_tag_suffix: linux-arm64
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+
+node_selector:
+  kubernetes.io/arch: amd64
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/tags/*
+
+---
+kind: pipeline
+name: manifests-server
+type: kubernetes
+
+platform:
+  os: linux
+  arch: arm64
+
+clone:
+  disable: true
+
+steps:
+- name: generate manifest
+  image: alpine
+  environment:
+    IMAGE: your-spotify
+  commands:
+  - |
+    wget -qO - https://raw.githubusercontent.com/ikaruswill/drone-manifests/master/manifest.tmpl \
+    | sed -e "s/\$${IMAGE}/$${IMAGE}/" > manifest.tmpl
+
+- name: push manifest
+  pull: always
+  image: plugins/manifest
+  settings:
+    auto_tag: true
+    ignore_missing: true
+    spec: manifest.tmpl
+    platforms:
+    - linux/arm64
+    - linux/amd64
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+
+node_selector:
+  kubernetes.io/arch: arm64
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/tags/*
+
+depends_on:
+- linux-arm64-server
+- linux-amd64-server
+
+---
+kind: pipeline
+name: linux-arm64-web
+type: kubernetes
+
+platform:
+  os: linux
+  arch: arm64
+
+clone:
+  depth: 1
+
+resources:
+  requests:
+    cpu: 1000
+    memory: 300MiB
+
+steps:
+- name: publish server
+  image: plugins/docker
+  resources:
+    limits:
+      cpu: 1500
+      memory: 300MiB
+  settings:
+    repo: ikaruswill/your-spotify-web
+    context: client/
+    dockerfile: client/Dockerfile.production
+    auto_tag: true
+    auto_tag_suffix: linux-arm64
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+
+node_selector:
+  kubernetes.io/arch: arm64
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/tags/*
+
+---
+kind: pipeline
+name: linux-amd64-web
+type: kubernetes
+
+platform:
+  os: linux
+  arch: amd64
+
+clone:
+  depth: 1
+
+resources:
+  requests:
+    cpu: 200
+    memory: 300MiB
+
+steps:
+- name: publish server
+  image: plugins/docker
+  resources:
+    limits:
+      cpu: 1500
+      memory: 300MiB
+  settings:
+    repo: ikaruswill/your-spotify-web
+    context: client/
+    dockerfile: client/Dockerfile.production
+    auto_tag: true
+    auto_tag_suffix: linux-arm64
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+
+node_selector:
+  kubernetes.io/arch: amd64
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/tags/*
+
+---
+kind: pipeline
+name: manifests-web
+type: kubernetes
+
+platform:
+  os: linux
+  arch: arm64
+
+clone:
+  disable: true
+
+steps:
+- name: generate manifest
+  image: alpine
+  environment:
+    IMAGE: your-spotify-web
+  commands:
+  - |
+    wget -qO - https://raw.githubusercontent.com/ikaruswill/drone-manifests/master/manifest.tmpl \
+    | sed -e "s/\$${IMAGE}/$${IMAGE}/" > manifest.tmpl
+
+- name: push manifest
+  pull: always
+  image: plugins/manifest
+  settings:
+    auto_tag: true
+    ignore_missing: true
+    spec: manifest.tmpl
+    platforms:
+    - linux/arm64
+    - linux/amd64
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+
+node_selector:
+  kubernetes.io/arch: arm64
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/tags/*
+
+depends_on:
+- linux-arm64-web
+- linux-amd64-web
+
+---
+kind: secret
+name: docker_username
+get:
+  path: drone-secrets
+  name: docker_username
+---
+kind: secret
+name: docker_password
+get:
+  path: drone-secrets
+  name: docker_password
