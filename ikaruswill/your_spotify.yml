@@ -12,15 +12,15 @@ clone:
 resources:
   requests:
     cpu: 1000
-    memory: 1GiB
+    memory: 1.2GiB
 
 steps:
 - name: publish server
   image: plugins/docker
   resources:
     limits:
-      cpu: 2500
-      memory: 1GiB
+      cpu: 2000
+      memory: 1.2GiB
   settings:
     repo: ikaruswill/your-spotify-web
     context: client/
@@ -147,7 +147,7 @@ clone:
 resources:
   requests:
     cpu: 1000
-    memory: 300MiB
+    memory: 512MiB
 
 steps:
 - name: publish server
@@ -155,7 +155,7 @@ steps:
   resources:
     limits:
       cpu: 2000
-      memory: 300MiB
+      memory: 512MiB
   settings:
     repo: ikaruswill/your-spotify
     context: server/
@@ -174,9 +174,6 @@ trigger:
   ref:
   - refs/heads/master
   - refs/tags/*
-
-depends_on:
-- linux-amd64-web
 
 ---
 kind: pipeline
@@ -220,6 +217,9 @@ trigger:
   ref:
   - refs/heads/master
   - refs/tags/*
+
+depends_on:
+- linux-amd64-web
 
 ---
 kind: pipeline
