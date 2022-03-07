@@ -19,7 +19,7 @@ steps:
   image: plugins/docker
   resources:
     limits:
-      cpu: 1500
+      cpu: 2000
       memory: 300MiB
   settings:
     repo: ikaruswill/your-spotify
@@ -62,7 +62,7 @@ steps:
   image: plugins/docker
   resources:
     limits:
-      cpu: 1500
+      cpu: 2000
       memory: 300MiB
   settings:
     repo: ikaruswill/your-spotify
@@ -147,15 +147,15 @@ clone:
 resources:
   requests:
     cpu: 1000
-    memory: 300MiB
+    memory: 768MiB
 
 steps:
 - name: publish server
   image: plugins/docker
   resources:
     limits:
-      cpu: 1500
-      memory: 300MiB
+      cpu: 2500
+      memory: 768MiB
   settings:
     repo: ikaruswill/your-spotify-web
     context: client/
@@ -190,7 +190,7 @@ clone:
 resources:
   requests:
     cpu: 200
-    memory: 300MiB
+    memory: 1GiB
 
 steps:
 - name: publish server
@@ -198,7 +198,7 @@ steps:
   resources:
     limits:
       cpu: 1500
-      memory: 300MiB
+      memory: 1GiB
   settings:
     repo: ikaruswill/your-spotify-web
     context: client/
