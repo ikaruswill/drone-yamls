@@ -176,7 +176,7 @@ trigger:
   - refs/tags/*
 
 depends_on:
-- manifests-web
+- linux-amd64-web
 
 ---
 kind: pipeline
@@ -220,9 +220,6 @@ trigger:
   ref:
   - refs/heads/master
   - refs/tags/*
-
-depends_on:
-- manifests-web
 
 ---
 kind: pipeline
