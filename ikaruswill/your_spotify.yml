@@ -15,16 +15,18 @@ resources:
     memory: 1.2GiB
 
 steps:
-- name: publish server
+- name: publish
   image: plugins/docker
   resources:
     limits:
       cpu: 2000
       memory: 1.2GiB
   settings:
-    repo: ikaruswill/your-spotify-web
+    repo: ikaruswill/your-spotify-client
     context: client/
     dockerfile: client/Dockerfile.production
+    build_args:
+    - NODE_ENV=production
     auto_tag: true
     auto_tag_suffix: linux-arm64
     username:
@@ -58,16 +60,18 @@ resources:
     memory: 2GiB
 
 steps:
-- name: publish server
+- name: publish
   image: plugins/docker
   resources:
     limits:
       cpu: 1500
       memory: 2GiB
   settings:
-    repo: ikaruswill/your-spotify-web
+    repo: ikaruswill/your-spotify-client
     context: client/
     dockerfile: client/Dockerfile.production
+    build_args:
+    - NODE_ENV=production
     auto_tag: true
     auto_tag_suffix: linux-amd64
     username:
@@ -99,7 +103,7 @@ steps:
 - name: generate manifest
   image: alpine
   environment:
-    IMAGE: your-spotify-web
+    IMAGE: your-spotify-client
   commands:
   - |
     wget -qO - https://raw.githubusercontent.com/ikaruswill/drone-manifests/master/manifest.tmpl \
@@ -150,16 +154,18 @@ resources:
     memory: 512MiB
 
 steps:
-- name: publish server
+- name: publish
   image: plugins/docker
   resources:
     limits:
       cpu: 2000
       memory: 512MiB
   settings:
-    repo: ikaruswill/your-spotify
+    repo: ikaruswill/your-spotify-server
     context: server/
     dockerfile: server/Dockerfile.production
+    build_args:
+    - NODE_ENV=production
     auto_tag: true
     auto_tag_suffix: linux-arm64
     username:
@@ -193,16 +199,18 @@ resources:
     memory: 300MiB
 
 steps:
-- name: publish server
+- name: publish
   image: plugins/docker
   resources:
     limits:
       cpu: 2000
       memory: 300MiB
   settings:
-    repo: ikaruswill/your-spotify
+    repo: ikaruswill/your-spotify-server
     context: server/
     dockerfile: server/Dockerfile.production
+    build_args:
+    - NODE_ENV=production
     auto_tag: true
     auto_tag_suffix: linux-amd64
     username:
@@ -237,7 +245,7 @@ steps:
 - name: generate manifest
   image: alpine
   environment:
-    IMAGE: your-spotify
+    IMAGE: your-spotify-server
   commands:
   - |
     wget -qO - https://raw.githubusercontent.com/ikaruswill/drone-manifests/master/manifest.tmpl \
@@ -269,7 +277,6 @@ trigger:
 depends_on:
 - linux-arm64-server
 - linux-amd64-server
-
 
 ---
 kind: secret
