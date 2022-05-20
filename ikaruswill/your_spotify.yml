@@ -196,7 +196,7 @@ clone:
 resources:
   requests:
     cpu: 200
-    memory: 300MiB
+    memory: 512MiB
 
 steps:
 - name: publish
@@ -204,7 +204,7 @@ steps:
   resources:
     limits:
       cpu: 2000
-      memory: 300MiB
+      memory: 512MiB
   settings:
     repo: ikaruswill/your-spotify-server
     context: server/
