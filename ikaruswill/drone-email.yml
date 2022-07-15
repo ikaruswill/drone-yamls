@@ -141,15 +141,3 @@ depends_on:
 - linux-arm64
 - linux-amd64
 
----
-kind: secret
-name: docker_username
-get:
-  path: drone-secrets
-  name: docker_username
----
-kind: secret
-name: docker_password
-get:
-  path: drone-secrets
-  name: docker_password

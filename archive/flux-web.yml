@@ -259,15 +259,3 @@ depends_on:
 - be-linux-arm
 - be-linux-arm64
 
----
-kind: secret
-name: docker_username
-get:
-  path: drone-secrets
-  name: docker_username
----
-kind: secret
-name: docker_password
-get:
-  path: drone-secrets
-  name: docker_password
