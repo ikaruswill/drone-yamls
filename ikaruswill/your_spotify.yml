@@ -22,7 +22,7 @@ steps:
       cpu: 2000
       memory: 1.2GiB
   settings:
-    repo: ikaruswill/your-spotify-client
+    repo: ikaruswill/your_spotify_client
     context: client/
     dockerfile: client/Dockerfile.production
     build_args:
@@ -67,7 +67,7 @@ steps:
       cpu: 1500
       memory: 2GiB
   settings:
-    repo: ikaruswill/your-spotify-client
+    repo: ikaruswill/your_spotify_client
     context: client/
     dockerfile: client/Dockerfile.production
     build_args:
@@ -103,7 +103,7 @@ steps:
 - name: generate manifest
   image: alpine
   environment:
-    IMAGE: your-spotify-client
+    IMAGE: your_spotify_client
   commands:
   - |
     wget -qO - https://raw.githubusercontent.com/ikaruswill/drone-manifests/master/manifest.tmpl \
@@ -161,7 +161,7 @@ steps:
       cpu: 2000
       memory: 512MiB
   settings:
-    repo: ikaruswill/your-spotify-server
+    repo: ikaruswill/your_spotify_server
     context: server/
     dockerfile: server/Dockerfile.production
     build_args:
@@ -206,7 +206,7 @@ steps:
       cpu: 2000
       memory: 512MiB
   settings:
-    repo: ikaruswill/your-spotify-server
+    repo: ikaruswill/your_spotify_server
     context: server/
     dockerfile: server/Dockerfile.production
     build_args:
@@ -245,7 +245,7 @@ steps:
 - name: generate manifest
   image: alpine
   environment:
-    IMAGE: your-spotify-server
+    IMAGE: your_spotify_server
   commands:
   - |
     wget -qO - https://raw.githubusercontent.com/ikaruswill/drone-manifests/master/manifest.tmpl \
