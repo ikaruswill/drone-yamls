@@ -22,7 +22,7 @@ steps:
       cpu: 1000
       memory: 300MiB
   settings:
-    repo: ${DRONE_REPO}
+    repo: ikaruswill/librespeed-go
     auto_tag: true
     auto_tag_suffix: linux-arm64
     username:
@@ -63,7 +63,7 @@ steps:
       cpu: 1000
       memory: 200MiB
   settings:
-    repo: ${DRONE_REPO}
+    repo: ikaruswill/librespeed-go
     auto_tag: true
     auto_tag_suffix: linux-amd64
     username:
@@ -95,7 +95,7 @@ steps:
 - name: generate manifest
   image: alpine
   environment:
-    IMAGE: ${DRONE_REPO_NAME}
+    IMAGE: librespeed-go
   commands:
   - |
     wget -qO - https://raw.githubusercontent.com/ikaruswill/drone-manifests/master/manifest.tmpl \
