@@ -16,7 +16,7 @@ resources:
 
 steps:
 - name: build
-  image: rust:1.46
+  image: rust:1.57
   resources:
     requests:
       cpu: 1000
@@ -89,7 +89,7 @@ clone:
 
 steps:
 - name: build
-  image: rust:1.46
+  image: rust:1.57
   resources:
     requests:
       cpu: 1000
