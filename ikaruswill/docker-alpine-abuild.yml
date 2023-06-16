@@ -145,7 +145,7 @@ steps:
 
 - name: push manifest (master)
   pull: always
-  image: plugins/manifest
+  image: plugins/manifest:1.4
   settings:
     auto_tag: true
     ignore_missing: true
@@ -163,7 +163,7 @@ steps:
 
 - name: push manifest (tag)
   pull: always
-  image: plugins/manifest
+  image: plugins/manifest:1.4
   settings:
     tag: ${DRONE_TAG##v}
     ignore_missing: true

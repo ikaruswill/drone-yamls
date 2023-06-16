@@ -101,7 +101,7 @@ steps:
 
 - name: push manifest
   pull: always
-  image: plugins/manifest
+  image: plugins/manifest:1.4
   settings:
     auto_tag: true
     ignore_missing: true
